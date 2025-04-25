@@ -1,0 +1,32 @@
+'use client'
+
+import RoleRadioGroup from '@/app/(main)/(auth)/signup/role/_component/RoleRadioGroup'
+import { Button } from '@mui/joy'
+import { useState } from 'react'
+import { Role } from '@/core/type/user/user.data'
+import { useRouter } from 'next/navigation'
+
+export default function SignUpPage() {
+  const [role, setRole] = useState<Role>()
+
+  const router = useRouter()
+
+  const handleNext = () => {
+    if (!role) return
+    if (role === 'SHOP_OWNER') router.push(`/signup/shop-info?role=${role}`)
+    else router.push(`/signup/nickname?role=${role}`)
+  }
+
+  return (
+    <>
+      <div>
+        <p className="text-2xl font-bold mb-8">가입하실 역할을 선택해주세요.</p>
+        <RoleRadioGroup role={role} setRole={setRole} />
+      </div>
+
+      <Button variant="outlined" disabled={!role} fullWidth onClick={handleNext}>
+        다음
+      </Button>
+    </>
+  )
+}

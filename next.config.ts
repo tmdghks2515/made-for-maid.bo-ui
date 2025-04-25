@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        // https://churr-bucket.s3.ap-northeast-2.amazonaws.com/common/logo/churr-logo-main.png
         protocol: 'https',
         hostname: 'churr-bucket.s3.ap-northeast-2.amazonaws.com',
         port: '',
