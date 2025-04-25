@@ -7,12 +7,13 @@ import { adminAuthApi } from '@/core/api/user/admin-auth.api'
 import { AdminSignInResDTO } from '@/core/type/user/user.data'
 import { useRouter } from 'next/navigation'
 import useAdminStore from '@/store/useAdminStore'
+import { AdminKakaoSignInCommand } from '@/core/type/user/user.command'
 
 export default function SignInPage() {
   const router = useRouter()
   const signIn = useAdminStore((state) => state.signIn)
 
-  const { execute } = useApi({
+  const { execute } = useApi<AdminKakaoSignInCommand, AdminSignInResDTO>({
     api: adminAuthApi.adminKakaoSignIn,
     params: {
       oauthCode: '124134134',
@@ -20,9 +21,12 @@ export default function SignInPage() {
       oauthId: 'gdagd',
     },
     onSuccess: (res: AdminSignInResDTO) => {
-      console.log('로그인 성공', res)
+      if (res.accessToken)
+        process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY &&
+          localStorage.setItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY, res.accessToken)
+
       if (res.status === 'SIGN_IN_SUCCESS') {
-        signIn(res.admin!!)
+        res.admin && signIn(res.admin)
         router.push('/')
       } else if (res.status === 'PROFILE_SELECT') {
         router.push('/profile')

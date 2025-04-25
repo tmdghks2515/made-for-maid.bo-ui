@@ -1,8 +1,11 @@
 'use client'
 
 import { CssVarsProvider, extendTheme } from '@mui/joy'
+import useCheckIsClient from '@/hook/useCheckCSR'
 
 export default function MuiThemeProvider() {
+  const isClient = useCheckIsClient()
+
   const theme = extendTheme({
     colorSchemes: {
       light: {
@@ -40,5 +43,6 @@ export default function MuiThemeProvider() {
     },
   })
 
+  if (!isClient) return null
   return <CssVarsProvider theme={theme} />
 }

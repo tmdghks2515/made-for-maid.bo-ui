@@ -1,26 +1,27 @@
 import { AxiosError, AxiosResponse } from 'axios'
 
-type UseApiProps = {
-  api: (params?: any) => Promise<AxiosResponse>
-  params?: any
-  onSuccess?: (data: any) => void
+type UseApiProps<T, D> = {
+  api: (params: T) => Promise<AxiosResponse<D>>
+  params?: T
+  onSuccess?: (data: D) => T
   onError?: (error: AxiosError) => void
   onComplete?: () => void
 }
 
-export default function useApi({ api, params, onSuccess, onError, onComplete }: UseApiProps) {
-  const execute = async () => {
-    api(params)
+export default function useApi<T = any, D = any>({ api, params, onSuccess, onError, onComplete }: UseApiProps<T, D>) {
+  const execute = async () =>
+    api(params as T)
       .then((res) => {
         onSuccess?.(res.data)
+        return res.data
       })
       .catch((error) => {
         onError?.(error)
+        return error
       })
       .finally(() => {
         onComplete?.()
       })
-  }
 
   return {
     execute,

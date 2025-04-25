@@ -8,4 +8,13 @@ const axiosInstance = axios.create({
   },
 })
 
+axiosInstance.interceptors.request.use((config) => {
+  const atkKey = process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY
+  const token = atkKey && localStorage.getItem(atkKey)
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`
+  }
+  return config
+})
+
 export default axiosInstance
