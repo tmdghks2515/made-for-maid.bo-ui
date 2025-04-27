@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Chip, FormControl, FormLabel, Option, Select } from '@mui/joy'
-import { ShopConcept } from '@/core/type/affiliate/shop.data'
+import { ShopConcept } from '@/core/type/affiliation/shop.data'
 import useCode from '@/hook/useCode'
 import { memo } from 'react'
 

@@ -12,7 +12,7 @@ type Props = {
 const ShopMenuImagesField = ({ setFieldValue, menuImageUrls }: Props) => {
   return (
     <>
-      <FormLabel>업체 메뉴</FormLabel>
+      <FormLabel>메뉴 이미지</FormLabel>
       <div>
         <IconButton className="w-20 h-20">
           <Add fontSize="large" />

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { AdminDTO } from '@/core/type/user/user.data'
+import { AdminDTO } from '@/core/type/user/admin.data'
 import { persist } from 'zustand/middleware'
 
 type AdminStore = {

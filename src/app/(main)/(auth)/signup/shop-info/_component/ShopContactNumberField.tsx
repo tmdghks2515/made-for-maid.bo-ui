@@ -12,7 +12,17 @@ const ShopContactNumberField = ({ contactNumber, handleChange }: Props) => {
   return (
     <FormControl>
       <FormLabel required>업체 연락처</FormLabel>
-      <Input name="contactNumber" value={contactNumber} placeholder="숫자만 입력해주세요." onChange={handleChange} />
+      <Input
+        name="contactNumber"
+        value={contactNumber}
+        placeholder="숫자만 입력해주세요."
+        onChange={handleChange}
+        slotProps={{
+          input: {
+            maxLength: 11,
+          },
+        }}
+      />
     </FormControl>
   )
 }

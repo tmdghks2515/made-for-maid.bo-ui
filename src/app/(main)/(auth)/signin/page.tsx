@@ -4,26 +4,21 @@ import KakaoSignInButton from '@/component/button/KakaoSignInButton'
 import { motion } from 'framer-motion'
 import useApi from '@/hook/useApi'
 import { adminAuthApi } from '@/core/api/user/admin-auth.api'
-import { AdminSignInResDTO } from '@/core/type/user/user.data'
+import { AdminSignInResDTO } from '@/core/type/user/admin.data'
 import { useRouter } from 'next/navigation'
 import useAdminStore from '@/store/useAdminStore'
-import { AdminKakaoSignInCommand } from '@/core/type/user/user.command'
+import { AdminKakaoSignInCommand } from '@/core/type/user/admin.command'
+import useAuthorize from '@/hook/useAuthorize'
 
 export default function SignInPage() {
   const router = useRouter()
   const signIn = useAdminStore((state) => state.signIn)
+  const { setAccessToken } = useAuthorize()
 
   const { execute } = useApi<AdminKakaoSignInCommand, AdminSignInResDTO>({
     api: adminAuthApi.adminKakaoSignIn,
-    params: {
-      oauthCode: '124134134',
-      email: 'tmdghks2515@naver.com',
-      oauthId: 'gdagd',
-    },
     onSuccess: (res: AdminSignInResDTO) => {
-      if (res.accessToken)
-        process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY &&
-          localStorage.setItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY, res.accessToken)
+      res.accessToken && setAccessToken(res.accessToken)
 
       if (res.status === 'SIGN_IN_SUCCESS') {
         res.admin && signIn(res.admin)
@@ -32,8 +27,6 @@ export default function SignInPage() {
         router.push('/profile')
       } else if (res.status === 'SIGN_UP_SUCCESS') {
         router.push('/signup/role')
-      } else {
-        alert('로그인 실패')
       }
     },
   })
@@ -81,7 +74,15 @@ export default function SignInPage() {
 
       <div>
         <div className="text-center text-sm text-subtle mb-2">로그인 후, 메이드카페를 쉽게 관리해보세요</div>
-        <KakaoSignInButton clickAction={execute} />
+        <KakaoSignInButton
+          clickAction={() =>
+            execute({
+              oauthCode: '124134134',
+              email: 'tmdghks2515@naver.com',
+              oauthId: 'gdagd',
+            })
+          }
+        />
       </div>
     </div>
   )

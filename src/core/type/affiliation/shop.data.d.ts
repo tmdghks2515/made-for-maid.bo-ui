@@ -18,7 +18,7 @@ type ShopConcept =
   | 'SHOP_CONCEPT_MUSCLE'
   | 'SHOP_CONCEPT_OTHER'
 
-type SnsLinkType = 'SNS_LINK_SHOP' | 'SNS_LINK_STAFF'
+type SnsLinkType = 'SHOP_LINK' | 'STAFF_LINK'
 
 type SnsType = 'INSTAGRAM' | 'X' | 'NAVER' | 'YOUTUBE' | 'TIKTOK'
 

@@ -4,4 +4,9 @@ type AdminKakaoSignInCommand = {
   oauthId: string // to be deleted
 }
 
-export { AdminKakaoSignInCommand }
+type CreateAdminCommand = {
+  nickname: string
+  shopId: string
+}
+
+export { AdminKakaoSignInCommand, CreateAdminCommand }

@@ -3,7 +3,7 @@
 import RoleRadioGroup from '@/app/(main)/(auth)/signup/role/_component/RoleRadioGroup'
 import { Button } from '@mui/joy'
 import { useState } from 'react'
-import { Role } from '@/core/type/user/user.data'
+import { Role } from '@/core/type/user/admin.data'
 import { useRouter } from 'next/navigation'
 
 export default function SignUpPage() {
@@ -14,7 +14,7 @@ export default function SignUpPage() {
   const handleNext = () => {
     if (!role) return
     if (role === 'SHOP_OWNER') router.push(`/signup/shop-info?role=${role}`)
-    else router.push(`/signup/nickname?role=${role}`)
+    else router.push(`/signup/shop-select?role=${role}`)
   }
 
   return (
@@ -24,7 +24,7 @@ export default function SignUpPage() {
         <RoleRadioGroup role={role} setRole={setRole} />
       </div>
 
-      <Button variant="outlined" disabled={!role} fullWidth onClick={handleNext}>
+      <Button variant="soft" disabled={!role} fullWidth onClick={handleNext}>
         다음
       </Button>
     </>

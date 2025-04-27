@@ -1,7 +1,7 @@
 'use client'
 
 import { CssVarsProvider, extendTheme } from '@mui/joy'
-import useCheckIsClient from '@/hook/useCheckCSR'
+import useCheckIsClient from '@/hook/useCheckIsClient'
 
 export default function MuiThemeProvider() {
   const isClient = useCheckIsClient()

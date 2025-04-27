@@ -2,7 +2,7 @@ import List from '@mui/joy/List'
 import ListItem from '@mui/joy/ListItem'
 import Radio from '@mui/joy/Radio'
 import RadioGroup from '@mui/joy/RadioGroup'
-import { Role } from '@/core/type/user/user.data'
+import { Role } from '@/core/type/user/admin.data'
 import { Dispatch, SetStateAction } from 'react'
 import { ValueLabel } from '@/core/type/shared/shared.data'
 
