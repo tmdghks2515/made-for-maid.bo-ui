@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useSnackbar from '@/hook/useSnackbar'
 
 type UseApiProps<T, D> = {
@@ -7,9 +7,18 @@ type UseApiProps<T, D> = {
   onSuccess?: (data: D) => void
   onError?: (error: AxiosError) => void
   onComplete?: () => void
+  executeImmediately?: boolean
+  initalParams?: T
 }
 
-export default function useApi<T = any, D = any>({ api, onSuccess, onError, onComplete }: UseApiProps<T, D>) {
+export default function useApi<T = any, D = any>({
+  api,
+  onSuccess,
+  onError,
+  onComplete,
+  executeImmediately,
+  initalParams,
+}: UseApiProps<T, D>) {
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState<D>()
   const { openSnackbar } = useSnackbar()
@@ -36,6 +45,10 @@ export default function useApi<T = any, D = any>({ api, onSuccess, onError, onCo
         setIsLoading(false)
       })
   }
+
+  useEffect(() => {
+    executeImmediately && execute(initalParams)
+  }, [executeImmediately])
 
   return {
     execute,

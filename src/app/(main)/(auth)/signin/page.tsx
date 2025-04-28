@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import useAdminStore from '@/store/useAdminStore'
 import { AdminKakaoSignInCommand } from '@/core/type/user/admin.command'
 import useAuthorize from '@/hook/useAuthorize'
+import Main from '@/component/layout/main/Main'
+import Header from '@/component/layout/header/Header'
 
 export default function SignInPage() {
   const router = useRouter()
@@ -47,43 +49,49 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-between gap-16">
-      <div>
-        <div className="flex items-baseline mb-16 pt-4">
+    <>
+      <Header>
+        <div className="flex justify-between items-baseline">
           <img
-            src="https://churr-bucket.s3.ap-northeast-2.amazonaws.com/common/logo/main_logo_80_40.PNG"
+            src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/common/logo/main_logo_80_40.PNG`}
             alt="churr-logo-main"
             width={60}
           />
           <span className="text-muted text-xs font-bold">관리자</span>
         </div>
+      </Header>
 
-        <motion.div variants={container} className="text-2xl px-4" initial="hidden" animate="show">
-          <p className="leading-9">
-            <motion.span variants={item}>
-              <b>단골 고객</b>을 늘리고,
-              <br />
-            </motion.span>
-            <motion.span variants={item}>
-              수익을 <b>다각화</b>하는 <br />
-            </motion.span>
-            <motion.span variants={item}>메이드카페 플랫폼.</motion.span>
-          </p>
-        </motion.div>
-      </div>
+      <Main>
+        <div className="pt-16 flex-1 flex flex-col justify-between gap-16">
+          <div>
+            <motion.div variants={container} className="text-2xl px-4" initial="hidden" animate="show">
+              <p className="leading-9">
+                <motion.span variants={item}>
+                  <b>단골 고객</b>을 늘리고,
+                  <br />
+                </motion.span>
+                <motion.span variants={item}>
+                  수익을 <b>다각화</b>하는 <br />
+                </motion.span>
+                <motion.span variants={item}>메이드카페 플랫폼.</motion.span>
+              </p>
+            </motion.div>
+          </div>
 
-      <div>
-        <div className="text-center text-sm text-subtle mb-2">로그인 후, 메이드카페를 쉽게 관리해보세요</div>
-        <KakaoSignInButton
-          clickAction={() =>
-            execute({
-              oauthCode: '124134134',
-              email: 'tmdghks2515@naver.com',
-              oauthId: 'gdagd',
-            })
-          }
-        />
-      </div>
-    </div>
+          <div>
+            <div className="text-center text-sm text-subtle mb-2">로그인 후, 메이드카페를 쉽게 관리해보세요</div>
+            <KakaoSignInButton
+              clickAction={() =>
+                execute({
+                  oauthCode: '124134134',
+                  email: 'tmdghks2515@naver.com',
+                  oauthId: 'gdagd',
+                })
+              }
+            />
+          </div>
+        </div>
+      </Main>
+    </>
   )
 }

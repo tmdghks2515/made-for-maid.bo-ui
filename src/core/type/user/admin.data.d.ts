@@ -18,4 +18,12 @@ type AdminSignInResDTO = {
   admin?: AdminDTO
 }
 
-export { SignInResStatus, AdminSignInResDTO, AdminDTO, Role }
+type AdminProfileDTO = {
+  userId: string
+  nickname: string
+  profileImageUrl?: string
+  shopId: string
+  shopName?: string
+}
+
+export { SignInResStatus, AdminSignInResDTO, AdminDTO, Role, AdminProfileDTO }

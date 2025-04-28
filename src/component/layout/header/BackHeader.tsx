@@ -4,16 +4,27 @@ import { memo } from 'react'
 import { IconButton } from '@mui/joy'
 import ArrowBackIos from '@mui/icons-material/ArrowBackIosNew'
 import { useRouter } from 'next/navigation'
+import Header from '@/component/layout/header/Header'
 
-const BackHeader = () => {
+type Props = {
+  title?: string
+}
+
+const BackHeader = ({ title }: Props) => {
   const router = useRouter()
 
   return (
-    <header className="flex items-center justify-between py-2">
-      <IconButton onClick={router.back}>
-        <ArrowBackIos fontSize="small" />
-      </IconButton>
-    </header>
+    <Header>
+      <div className="flex-1">
+        <IconButton onClick={router.back}>
+          <ArrowBackIos fontSize="small" />
+        </IconButton>
+      </div>
+      <div className="flex-3">{title && <h3 className="font-bold text-center">{title}</h3>}</div>
+      <div className="flex-1">
+        <div />
+      </div>
+    </Header>
   )
 }
 
