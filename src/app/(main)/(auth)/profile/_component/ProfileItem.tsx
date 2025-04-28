@@ -36,7 +36,7 @@ const ProfileItem = ({ profile }: Props) => {
 
   return (
     <Button className="flex flex-col w-28" variant="plain" onClick={() => execute(profile.userId)}>
-      <ProfileAvatar profileImageUrl={profile.profileImageUrl} />
+      <ProfileAvatar profileImageUrl={profile.profileImageUrl} staffType={profile.staffType} />
       <span className="text-sm line-clamp-2 text-foreground">{profile.nickname}</span>
       <span className="text-xs line-clamp-2 text-subtle">@{profile.shopName}</span>
     </Button>

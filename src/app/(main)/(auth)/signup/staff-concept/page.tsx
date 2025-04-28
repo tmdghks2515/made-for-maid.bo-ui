@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { StaffType } from '@/core/type/user/admin.command'
+import { StaffType } from '@/core/type/user/admin.data'
 import { Box, Button, Chip, Option, Select } from '@mui/joy'
 import useCode from '@/hook/useCode'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { StaffType } from '@/core/type/user/admin.command'
+import { StaffType } from '@/core/type/user/admin.data'
 import useCode from '@/hook/useCode'
 import List from '@mui/joy/List'
 import ListItem from '@mui/joy/ListItem'
