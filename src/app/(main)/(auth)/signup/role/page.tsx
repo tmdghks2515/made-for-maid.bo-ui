@@ -14,7 +14,8 @@ export default function SignUpPage() {
   const handleNext = () => {
     if (!role) return
     if (role === 'SHOP_OWNER') router.push(`/signup/shop-info?role=${role}`)
-    else router.push(`/signup/shop-select?role=${role}`)
+    else if (role === 'SHOP_STAFF') router.push(`/signup/staff-type?role=${role}`)
+    else if (role === 'SHOP_MANAGER') router.push(`/signup/shop-select?role=${role}`)
   }
 
   return (

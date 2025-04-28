@@ -1,36 +1,29 @@
 'use client'
 
+import { StaffType } from '@/core/type/user/admin.command'
+import useCode from '@/hook/useCode'
 import List from '@mui/joy/List'
 import ListItem from '@mui/joy/ListItem'
 import Radio from '@mui/joy/Radio'
 import RadioGroup from '@mui/joy/RadioGroup'
-import { Role } from '@/core/type/user/admin.data'
-import { Dispatch, SetStateAction } from 'react'
-import { ValueLabel } from '@/core/type/shared/shared.data'
 
 type Props = {
-  role: Role | undefined
-  setRole: Dispatch<SetStateAction<Role | undefined>>
+  staffType: StaffType | undefined
+  setStaffType: (type: StaffType) => void
 }
 
-const RoleRadioOptions: ValueLabel<Role>[] = [
-  {
-    value: 'SHOP_OWNER',
-    label: '사장님',
-  },
-  {
-    value: 'SHOP_MANAGER',
-    label: '매니저',
-  },
-  {
-    value: 'SHOP_STAFF',
-    label: '메이드/집사',
-  },
-]
+const StaffTypeRadioGroup = ({ staffType, setStaffType }: Props) => {
+  const { makeOptions } = useCode()
 
-const RoleRadioGroup = ({ role, setRole }: Props) => {
+  const options = makeOptions('STAFF_TYPE')
+
   return (
-    <RadioGroup aria-label="Your role" name="role" value={role ?? ''} onChange={(e) => setRole(e.target.value as Role)}>
+    <RadioGroup
+      aria-label="Your staff type"
+      name="staff Type"
+      value={staffType ?? ''}
+      onChange={(e) => setStaffType(e.target.value as StaffType)}
+    >
       <List
         sx={{
           minWidth: 240,
@@ -40,7 +33,7 @@ const RoleRadioGroup = ({ role, setRole }: Props) => {
           '--ListItemDecorator-size': '32px',
         }}
       >
-        {RoleRadioOptions.map((item, index) => (
+        {options.map((item) => (
           <ListItem variant="outlined" key={item.value} sx={{ boxShadow: 'sm' }}>
             <Radio
               overlay
@@ -66,4 +59,4 @@ const RoleRadioGroup = ({ role, setRole }: Props) => {
   )
 }
 
-export default RoleRadioGroup
+export default StaffTypeRadioGroup

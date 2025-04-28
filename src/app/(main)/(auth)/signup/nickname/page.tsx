@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Button, FormControl, FormLabel, Input } from '@mui/joy'
 import { useState } from 'react'
 import useApi from '@/hook/useApi'
-import { CreateAdminCommand } from '@/core/type/user/admin.command'
+import { CreateAdminCommand, CreateStaffCommand, StaffConcept, StaffType } from '@/core/type/user/admin.command'
 import { AdminSignInResDTO } from '@/core/type/user/admin.data'
 import useSnackbar from '@/hook/useSnackbar'
 import useAuthorize from '@/hook/useAuthorize'
@@ -14,6 +14,8 @@ export default function NicknamePage() {
   const searchParams = useSearchParams()
   const role = searchParams.get('role')
   const shopId = searchParams.get('shopId')
+  const staffType = searchParams.get('staffType')
+  const staffConcepts = searchParams.getAll('staffConcepts')
 
   const router = useRouter()
   const { openSnackbar } = useSnackbar()
@@ -52,7 +54,7 @@ export default function NicknamePage() {
     },
   })
 
-  const { execute: executeCreateStaff, isLoading: isCreateStaffLoading } = useApi<CreateAdminCommand, string>({
+  const { execute: executeCreateStaff, isLoading: isCreateStaffLoading } = useApi<CreateStaffCommand, string>({
     api: adminApi.createStaff,
     onSuccess: () => {
       openSnackbar({
@@ -81,17 +83,23 @@ export default function NicknamePage() {
       return
     }
 
-    const command: CreateAdminCommand = {
-      nickname,
-      shopId,
-    }
-
     if (role === 'SHOP_OWNER') {
-      executeCreateOwner(command)
+      executeCreateOwner({
+        nickname,
+        shopId,
+      })
     } else if (role === 'SHOP_MANAGER') {
-      executeCreateManager(command)
+      executeCreateManager({
+        nickname,
+        shopId,
+      })
     } else if (role === 'SHOP_STAFF') {
-      executeCreateStaff(command)
+      executeCreateStaff({
+        nickname,
+        shopId,
+        staffType: staffType as StaffType,
+        staffConcepts: staffConcepts as StaffConcept[],
+      })
     }
   }
 

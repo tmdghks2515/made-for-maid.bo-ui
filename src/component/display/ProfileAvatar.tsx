@@ -7,7 +7,7 @@ type Props = {
   profileImageUrl: string | undefined
 }
 const cloudFrontUrl = `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}`
-const defaultProfileUrl = '/common/profile-img/churr_default_profile.png'
+const defaultProfileUrl = '/common/profile-img/churr_default_profile_120.png'
 
 const ProfileAvatar = ({ profileImageUrl }: Props) => {
   const src = `${cloudFrontUrl}${profileImageUrl || defaultProfileUrl}`
