@@ -47,6 +47,7 @@ export default function useApi<T = any, D = any>({
   }
 
   useEffect(() => {
+    console.log('??', executeImmediately)
     executeImmediately && execute(initalParams)
   }, [executeImmediately])
 

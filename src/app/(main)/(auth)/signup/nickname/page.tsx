@@ -37,6 +37,12 @@ export default function NicknamePage() {
         return
       }
 
+      openSnackbar({
+        title: '가입 성공!',
+        message: '가입이 완료되었습니다.',
+        variant: 'success',
+      })
+
       signIn(resData.admin, resData.accessToken)
       router.push('/')
     },
@@ -45,24 +51,14 @@ export default function NicknamePage() {
   const { execute: executeCreateManager, isLoading: isCreateManagerLoading } = useApi<CreateAdminCommand, string>({
     api: adminApi.createManager,
     onSuccess: () => {
-      openSnackbar({
-        title: '가입 성공!',
-        message: '사장님에게 가입 승인을 요청해주세요!',
-        variant: 'success',
-      })
-      router.push('/profile')
+      router.push('/signup/complete')
     },
   })
 
   const { execute: executeCreateStaff, isLoading: isCreateStaffLoading } = useApi<CreateStaffCommand, string>({
     api: adminApi.createStaff,
     onSuccess: () => {
-      openSnackbar({
-        title: '가입 성공!',
-        message: '사장님에게 가입 승인을 요청해주세요!',
-        variant: 'success',
-      })
-      router.push('/profile')
+      router.push('/signup/complete')
     },
   })
 

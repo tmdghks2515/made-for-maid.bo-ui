@@ -2,22 +2,41 @@
 
 import BackHeader from '@/component/layout/header/BackHeader'
 import useApi from '@/hook/useApi'
-import { AdminProfileDTO } from '@/core/type/user/admin.data'
+import { AdminProfileDTO, AdminSignInResDTO } from '@/core/type/user/admin.data'
 import { adminApi } from '@/core/api/user/admin.api'
 import { useRouter } from 'next/navigation'
 import Main from '@/component/layout/main/Main'
 import { IconButton } from '@mui/joy'
 import ProfileItem from '@/app/(main)/(auth)/profile/_component/ProfileItem'
 import Add from '@mui/icons-material/Add'
+import useSnackbar from '@/hook/useSnackbar'
+import useAuthorize from '@/hook/useAuthorize'
 
 export default function ProfilePage() {
   const router = useRouter()
+  const { signIn } = useAuthorize()
+  const { openSnackbar } = useSnackbar()
 
   const { data: profiles = [] } = useApi<void, AdminProfileDTO[]>({
     api: adminApi.getProfiles,
     executeImmediately: true,
     onError: () => {
       router.push('/signin')
+    },
+  })
+
+  const { execute } = useApi<string, AdminSignInResDTO>({
+    api: adminApi.selectProfile,
+    onSuccess: (resData) => {
+      if (!resData.admin || !resData.accessToken) {
+        openSnackbar({
+          message: '프로필 선택에 실패했습니다.',
+          variant: 'danger',
+        })
+        return
+      }
+      signIn(resData.admin, resData.accessToken)
+      router.push('/')
     },
   })
 
@@ -31,11 +50,11 @@ export default function ProfilePage() {
           <div className="grid grid-cols-3 gap-2 items-baseline px-8 max-w-screen-sm mx-auto">
             {profiles.map((profile) => (
               <div className="mx-auto" key={profile.userId}>
-                <ProfileItem profile={profile} />
+                <ProfileItem profile={profile} onClick={() => execute(profile.userId)} />
               </div>
             ))}
             <div className="mx-auto">
-              <IconButton variant="plain" className="w-28 h-36" onClick={() => router.push('/signup/role')}>
+              <IconButton variant="plain" className="w-28 h-32" onClick={() => router.push('/signup/role')}>
                 <Add />
               </IconButton>
             </div>

@@ -31,7 +31,7 @@ export default function StaffConceptPage() {
       newSearchParams.append('staffConcepts', concept)
     })
 
-    router.push(`/signup/shop-select?${searchParams.toString()}`)
+    router.push(`/signup/shop-select?${newSearchParams.toString()}`)
   }
 
   return (
