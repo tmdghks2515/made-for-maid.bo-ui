@@ -5,7 +5,7 @@ import { memo, SetStateAction, useCallback, useMemo } from 'react'
 import { FormLabel, IconButton } from '@mui/joy'
 import Add from '@mui/icons-material/Add'
 import useCode from '@/hook/useCode'
-import SnsLinkItem from '@/app/(main)/(auth)/signup/shop-info/_component/SnsLinkItem'
+import SnsLinkItem from '@/app/(auth)/signup/shop-info/_component/SnsLinkItem'
 import * as React from 'react'
 import { FormikErrors } from 'formik/dist/types'
 

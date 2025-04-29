@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Providers from '@/component/provider/Providers'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: '츄르르 관리자',
@@ -15,7 +16,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="w-full flex justify-center items-center">
+            <div className="min-h-screen flex flex-col w-full lg:max-w-5xl">
+              <Suspense>{children}</Suspense>
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   )

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@mui/joy'
 import { StaffType } from '@/core/type/user/admin.data'
-import StaffTypeRadioGroup from '@/app/(main)/(auth)/signup/staff-type/_component/StaffTypeRadioGroup'
+import StaffTypeRadioGroup from '@/app/(auth)/signup/staff-type/_component/StaffTypeRadioGroup'
 
 export default function StaffTypePage() {
   const router = useRouter()

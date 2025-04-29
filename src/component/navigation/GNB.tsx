@@ -1,0 +1,390 @@
+'use client'
+
+import { DialogContent, Drawer, Sheet, List } from '@mui/joy'
+import {
+  Store,
+  Payment,
+  ChatBubbleOutlineOutlined,
+  MicNone,
+  DashboardOutlined,
+  EmojiEventsOutlined,
+  Pets,
+  ConfirmationNumberOutlined,
+  AccountBalanceWalletOutlined,
+  GroupOutlined,
+} from '@mui/icons-material'
+import { useEffect, useMemo, useState } from 'react'
+import MenuListItem, { MenuItem } from '@/component/navigation/MenuListItem'
+import { usePathname, useRouter } from 'next/navigation'
+import useAdminStore from '@/store/useAdminStore'
+
+type Props = {
+  open: boolean
+  onClose: () => void
+}
+
+const GNB = ({ open, onClose }: Props) => {
+  const [openedMenuIndexes, setOpenedMenuIndexes] = useState<number[]>([])
+
+  const pathname = usePathname()
+  const router = useRouter()
+  const admin = useAdminStore((state) => state.admin)
+
+  const menu = useMemo(() => {
+    switch (admin?.primaryRole) {
+      case 'SHOP_OWNER':
+        return ownerMenu
+      case 'SHOP_MANAGER':
+        return managerMenu
+      case 'SHOP_STAFF':
+        return staffMenu
+      default:
+        return []
+    }
+  }, [admin?.primaryRole])
+
+  const handleClickMenuItem = (item: MenuItem, index: number) => {
+    if (item.pathname) {
+      pathname !== item.pathname && router.push(item.pathname || '/')
+      onClose()
+    } else if (item.children) {
+      setOpenedMenuIndexes((prev) => {
+        const isOpen = prev.includes(index)
+        if (isOpen) {
+          return prev.filter((i) => i !== index)
+        } else {
+          return [...prev, index]
+        }
+      })
+    }
+  }
+
+  useEffect(() => {
+    menu.forEach((item, index) => {
+      if (item.pathname === pathname) {
+        setOpenedMenuIndexes([index])
+      } else if (item.children) {
+        item.children.forEach((child) => {
+          if (child.pathname === pathname) {
+            setOpenedMenuIndexes([index])
+          }
+        })
+      }
+    })
+  }, [])
+
+  return (
+    <Drawer
+      size="sm"
+      variant="plain"
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        content: {
+          sx: {
+            bgcolor: 'transparent',
+            p: { md: 3, sm: 2, xs: 1 },
+            boxShadow: 'none',
+          },
+        },
+      }}
+    >
+      <Sheet
+        sx={{
+          borderRadius: 'md',
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          overflow: 'auto',
+        }}
+      >
+        <DialogContent>
+          <List className="flex flex-col gap-2">
+            {menu.map((item, index) => (
+              <div key={`menu-item-${index}`}>
+                <MenuListItem
+                  menuItem={item}
+                  isOpen={openedMenuIndexes.includes(index)}
+                  onClick={() => handleClickMenuItem(item, index)}
+                />
+                <div className="pl-2">
+                  {item.children && openedMenuIndexes.includes(index) && (
+                    <List className="flex flex-col gap-1">
+                      {item.children.map((child, index) => (
+                        <MenuListItem
+                          key={`menu-${child.label}-${index}`}
+                          menuItem={child}
+                          isOpen={false}
+                          onClick={() => handleClickMenuItem(child, index)}
+                        />
+                      ))}
+                    </List>
+                  )}
+                </div>
+              </div>
+            ))}
+          </List>
+        </DialogContent>
+      </Sheet>
+    </Drawer>
+  )
+}
+
+export default GNB
+
+const ownerMenu: MenuItem[] = [
+  {
+    label: '대시보드',
+    icon: <DashboardOutlined />,
+    pathname: '/',
+  },
+  {
+    label: '업체',
+    icon: <Store />,
+    children: [
+      {
+        label: '업체 정보',
+        pathname: '/shop/info/',
+      },
+      {
+        label: '메이드/집사',
+        pathname: '/shop/staff/',
+      },
+      {
+        label: '공지사항',
+        pathname: '/shop/notice/',
+      },
+    ],
+  },
+  {
+    label: '패스',
+    icon: <EmojiEventsOutlined />,
+    children: [
+      {
+        label: '패스 관리',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '패스 구독 이력',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '녹음',
+    icon: <MicNone />,
+    children: [
+      {
+        label: '공개 녹음',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '비공개 녹음',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '츄르',
+    icon: <Pets />,
+    children: [
+      {
+        label: '츄르 현황',
+        pathname: '/pass/pass-info',
+      },
+    ],
+  },
+  {
+    label: '쿠폰',
+    icon: <ConfirmationNumberOutlined />,
+    children: [
+      {
+        label: '쿠폰 관리',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '쿠폰 지급이력',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '결제',
+    icon: <Payment />,
+    children: [
+      {
+        label: '결제 수단',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '결제 이력',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '정산',
+    icon: <AccountBalanceWalletOutlined />,
+    children: [
+      {
+        label: '정산 계좌',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '정산 내역',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '손님',
+    icon: <GroupOutlined />,
+    children: [
+      {
+        label: '손님 랭킹',
+        pathname: '/pass/pass-info',
+      },
+    ],
+  },
+  {
+    label: '채팅',
+    icon: <ChatBubbleOutlineOutlined />,
+    pathname: '/pass/pass-info',
+  },
+]
+
+const managerMenu: MenuItem[] = [
+  {
+    label: '대시보드',
+    icon: <DashboardOutlined />,
+    pathname: '/',
+  },
+  {
+    label: '업체',
+    icon: <Store />,
+    children: [
+      {
+        label: '업체 정보',
+        pathname: '/shop/info/',
+      },
+      {
+        label: '메이드/집사',
+        pathname: '/shop/shop-info',
+      },
+      {
+        label: '공지사항',
+        pathname: '/shop/notice',
+      },
+    ],
+  },
+  {
+    label: '패스',
+    icon: <EmojiEventsOutlined />,
+    children: [
+      {
+        label: '패스 관리',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '패스 구독 이력',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '녹음',
+    icon: <MicNone />,
+    children: [
+      {
+        label: '공개 녹음',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '비공개 녹음',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '츄르',
+    icon: <Pets />,
+    children: [
+      {
+        label: '츄르 현황',
+        pathname: '/pass/pass-info',
+      },
+    ],
+  },
+  {
+    label: '쿠폰',
+    icon: <ConfirmationNumberOutlined />,
+    children: [
+      {
+        label: '쿠폰 관리',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '쿠폰 지급이력',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '손님',
+    icon: <GroupOutlined />,
+    children: [
+      {
+        label: '손님 랭킹',
+        pathname: '/pass/pass-info',
+      },
+    ],
+  },
+  {
+    label: '채팅',
+    icon: <ChatBubbleOutlineOutlined />,
+    pathname: '/pass/pass-info',
+  },
+]
+
+const staffMenu: MenuItem[] = [
+  {
+    label: '녹음',
+    icon: <MicNone />,
+    children: [
+      {
+        label: '공개 녹음',
+        pathname: '/pass/pass-info',
+      },
+      {
+        label: '비공개 녹음',
+        pathname: '/pass/pass-product',
+      },
+    ],
+  },
+  {
+    label: '츄르',
+    icon: <Pets />,
+    children: [
+      {
+        label: '츄르 현황',
+        pathname: '/pass/pass-info',
+      },
+    ],
+  },
+  {
+    label: '손님',
+    icon: <GroupOutlined />,
+    children: [
+      {
+        label: '손님 랭킹',
+        pathname: '/pass/pass-info',
+      },
+    ],
+  },
+  {
+    label: '채팅',
+    icon: <ChatBubbleOutlineOutlined />,
+    pathname: '/pass/pass-info',
+  },
+]

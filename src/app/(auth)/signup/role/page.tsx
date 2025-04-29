@@ -1,6 +1,6 @@
 'use client'
 
-import RoleRadioGroup from '@/app/(main)/(auth)/signup/role/_component/RoleRadioGroup'
+import RoleRadioGroup from '@/app/(auth)/signup/role/_component/RoleRadioGroup'
 import { Button } from '@mui/joy'
 import { useState } from 'react'
 import { Role } from '@/core/type/user/admin.data'

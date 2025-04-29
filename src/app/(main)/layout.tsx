@@ -1,15 +1,14 @@
-import { Suspense } from 'react'
+import MainHeader from '@/component/layout/header/MainHeader'
 
-export default function RootLayout({
+export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="min-h-screen flex flex-col w-full lg:max-w-5xl">
-        <Suspense>{children}</Suspense>
-      </div>
-    </div>
+    <>
+      <MainHeader />
+      {children}
+    </>
   )
 }
