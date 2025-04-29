@@ -11,7 +11,7 @@ export default function useCode() {
   })
 
   const { data: codeTree = [] } = useQuery({
-    queryFn: executeGetCodeTree,
+    queryFn: () => executeGetCodeTree(),
     queryKey: ['/common/code/tree'],
     staleTime: Infinity,
     gcTime: Infinity,
