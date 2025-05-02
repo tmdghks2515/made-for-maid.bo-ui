@@ -1,6 +1,11 @@
 'use client'
 
-import { Box, Chip, FormControl, FormLabel, Option, Select } from '@mui/joy'
+import Box from '@mui/joy/Box'
+import Chip from '@mui/joy/Chip'
+import FormControl from '@mui/joy/FormControl'
+import FormLabel from '@mui/joy/FormLabel'
+import Option from '@mui/joy/Option'
+import Select from '@mui/joy/Select'
 import { ShopConcept } from '@/core/type/affiliation/shop.data'
 import useCode from '@/hook/useCode'
 import { memo } from 'react'

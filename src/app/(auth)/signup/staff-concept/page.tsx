@@ -3,7 +3,11 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { StaffType } from '@/core/type/user/admin.data'
-import { Box, Button, Chip, Option, Select } from '@mui/joy'
+import Box from '@mui/joy/Box'
+import Button from '@mui/joy/Button'
+import Chip from '@mui/joy/Chip'
+import Option from '@mui/joy/Option'
+import Select from '@mui/joy/Select'
 import useCode from '@/hook/useCode'
 
 export default function StaffConceptPage() {

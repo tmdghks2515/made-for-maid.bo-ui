@@ -1,6 +1,8 @@
 'use client'
 
-import { FormControl, FormLabel, Input } from '@mui/joy'
+import FormControl from '@mui/joy/FormControl'
+import FormLabel from '@mui/joy/FormLabel'
+import Input from '@mui/joy/Input'
 import { memo } from 'react'
 
 type Props = {

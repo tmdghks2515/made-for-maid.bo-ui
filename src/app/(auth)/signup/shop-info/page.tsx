@@ -1,6 +1,7 @@
 'use client'
 
-import { Button, Divider } from '@mui/joy'
+import Button from '@mui/joy/Button'
+import Divider from '@mui/joy/Divider'
 import useCheckIsClient from '@/hook/useCheckIsClient'
 import { useFormik } from 'formik'
 import { ShopDTO } from '@/core/type/affiliation/shop.data'

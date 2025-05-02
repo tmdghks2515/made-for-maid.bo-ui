@@ -2,7 +2,10 @@
 
 import { memo } from 'react'
 import { SnsLinkDTO, SnsType } from '@/core/type/affiliation/shop.data'
-import { IconButton, Input, Option, Select } from '@mui/joy'
+import IconButton from '@mui/joy/IconButton'
+import Input from '@mui/joy/Input'
+import Option from '@mui/joy/Option'
+import Select from '@mui/joy/Select'
 import { ValueLabel } from '@/core/type/shared/shared.data'
 import { Remove } from '@mui/icons-material'
 

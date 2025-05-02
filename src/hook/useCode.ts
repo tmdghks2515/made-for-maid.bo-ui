@@ -21,6 +21,9 @@ export default function useCode() {
 
   const makeOptions = useCallback(
     (parentCode: string, deep = false): ValueLabel[] => {
+      if (!codeTree || !Array.isArray(codeTree)) {
+        return []
+      }
       const result: ValueLabel[] = []
       const queue: CommonCodeDTO[] = [...codeTree]
 

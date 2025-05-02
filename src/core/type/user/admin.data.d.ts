@@ -29,6 +29,7 @@ type AdminDTO = {
   shopId?: string
   staffType?: StaffType
   staffConcepts?: StaffConcept[]
+  approvedAt?: string
 }
 
 type SignInResStatus = 'SIGN_UP_SUCCESS' | 'SIGN_IN_SUCCESS' | 'PROFILE_SELECT' | 'OAUTH_FAILED'

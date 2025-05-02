@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Button } from '@mui/joy'
+import Button from '@mui/joy/Button'
 import { StaffType } from '@/core/type/user/admin.data'
 import StaffTypeRadioGroup from '@/app/(auth)/signup/staff-type/_component/StaffTypeRadioGroup'
 

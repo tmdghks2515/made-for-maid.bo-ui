@@ -1,5 +1,5 @@
 import BackHeader from '@/component/layout/header/BackHeader'
-import Main from '@/component/layout/main/Main'
+import MainContainer from '@/component/layout/container/MainContainer'
 
 export default function SignUpLayout({
   children,
@@ -9,9 +9,9 @@ export default function SignUpLayout({
   return (
     <>
       <BackHeader />
-      <Main>
+      <MainContainer>
         <div className="pt-12 px-4 flex-1 flex flex-col justify-between">{children}</div>
-      </Main>
+      </MainContainer>
     </>
   )
 }

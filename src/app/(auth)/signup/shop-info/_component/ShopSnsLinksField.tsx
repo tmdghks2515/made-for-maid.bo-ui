@@ -2,7 +2,8 @@
 
 import { ShopDTO, SnsLinkDTO, SnsType } from '@/core/type/affiliation/shop.data'
 import { memo, SetStateAction, useCallback, useMemo } from 'react'
-import { FormLabel, IconButton } from '@mui/joy'
+import FormLabel from '@mui/joy/FormLabel'
+import IconButton from '@mui/joy/IconButton'
 import Add from '@mui/icons-material/Add'
 import useCode from '@/hook/useCode'
 import SnsLinkItem from '@/app/(auth)/signup/shop-info/_component/SnsLinkItem'

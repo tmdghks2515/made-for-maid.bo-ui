@@ -1,9 +1,11 @@
 'use client'
 
-import { Snackbar, Stack } from '@mui/joy'
+import Snackbar from '@mui/joy/Snackbar'
+import Stack from '@mui/joy/Stack'
 import useSnackbarStore from '@/store/useSnackbarStore'
 import { useMemo } from 'react'
-import { CheckCircleOutline, ErrorOutline } from '@mui/icons-material'
+import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline'
+import ErrorOutline from '@mui/icons-material/ErrorOutline'
 
 export default function SnackbarProvider() {
   const { open, message, variant, title } = useSnackbarStore((state) => state.snackbarProps)

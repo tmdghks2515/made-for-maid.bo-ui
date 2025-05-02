@@ -1,9 +1,12 @@
 'use client'
 
 import { JSX, memo } from 'react'
-import { ListItem, ListItemButton, ListItemDecorator, ListItemContent } from '@mui/joy'
-import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
-import { usePathname } from 'next/navigation'
+import ListItem from '@mui/joy/ListItem'
+import ListItemButton from '@mui/joy/ListItemButton'
+import ListItemDecorator from '@mui/joy/ListItemDecorator'
+import ListItemContent from '@mui/joy/ListItemContent'
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 
 export type MenuItem = {
   icon?: JSX.Element
@@ -16,19 +19,13 @@ type Props = {
   menuItem: MenuItem
   onClick: () => void
   isOpen?: boolean
+  isActive?: boolean
 }
 
-const MenuListItem = ({ menuItem, onClick, isOpen }: Props) => {
-  const pathname = usePathname()
-
+const MenuListItem = ({ menuItem, onClick, isOpen, isActive }: Props) => {
   return (
     <ListItem>
-      <ListItemButton
-        sx={{ borderRadius: 'md' }}
-        onClick={onClick}
-        selected={pathname === menuItem.pathname}
-        color={pathname === menuItem.pathname ? 'primary' : undefined}
-      >
+      <ListItemButton sx={{ borderRadius: 'md' }} onClick={onClick} selected={isActive}>
         {menuItem.icon && <ListItemDecorator>{menuItem.icon}</ListItemDecorator>}
         <ListItemContent className="text-sm">{menuItem.label}</ListItemContent>
         {menuItem.children && (isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}

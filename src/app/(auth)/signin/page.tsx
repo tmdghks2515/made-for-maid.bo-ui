@@ -9,8 +9,9 @@ import { useRouter } from 'next/navigation'
 import useAdminStore from '@/store/useAdminStore'
 import { AdminKakaoSignInCommand } from '@/core/type/user/admin.command'
 import useAuthorize from '@/hook/useAuthorize'
-import Main from '@/component/layout/main/Main'
 import Header from '@/component/layout/header/Header'
+import MainContainer from '@/component/layout/container/MainContainer'
+import Logo from '@/component/display/Logo'
 
 export default function SignInPage() {
   const router = useRouter()
@@ -52,16 +53,12 @@ export default function SignInPage() {
     <>
       <Header>
         <div className="flex justify-between items-baseline">
-          <img
-            src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/common/logo/main_logo_80_40.PNG`}
-            alt="churr-logo-main"
-            width={60}
-          />
+          <Logo />
           <span className="text-muted text-xs font-bold">관리자</span>
         </div>
       </Header>
 
-      <Main>
+      <MainContainer>
         <div className="pt-16 flex-1 flex flex-col justify-between gap-16">
           <div>
             <motion.div variants={container} className="text-2xl px-4" initial="hidden" animate="show">
@@ -91,7 +88,7 @@ export default function SignInPage() {
             />
           </div>
         </div>
-      </Main>
+      </MainContainer>
     </>
   )
 }

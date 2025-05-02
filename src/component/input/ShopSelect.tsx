@@ -2,9 +2,8 @@
 
 import { memo, useEffect, useState } from 'react'
 import useApi from '@/hook/useApi'
-import { ShopDTO } from '@/core/type/affiliation/shop.data'
 import { shopApi } from '@/core/api/affiliate/shop.api'
-import { Autocomplete } from '@mui/joy'
+import Autocomplete from '@mui/joy/Autocomplete'
 import { ValueLabel } from '@/core/type/shared/shared.data'
 import useDebounce from '@/hook/useDebounce'
 

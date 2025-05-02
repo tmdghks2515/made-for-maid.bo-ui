@@ -1,22 +1,30 @@
 'use client'
 
-import { DialogContent, Drawer, Sheet, List } from '@mui/joy'
-import {
-  Store,
-  Payment,
-  ChatBubbleOutlineOutlined,
-  MicNone,
-  DashboardOutlined,
-  EmojiEventsOutlined,
-  Pets,
-  ConfirmationNumberOutlined,
-  AccountBalanceWalletOutlined,
-  GroupOutlined,
-} from '@mui/icons-material'
+import DialogContent from '@mui/joy/DialogContent'
+import Drawer from '@mui/joy/Drawer'
+import Sheet from '@mui/joy/Sheet'
+import List from '@mui/joy/List'
+import DialogTitle from '@mui/joy/DialogTitle'
+import Divider from '@mui/joy/Divider'
+import IconButton from '@mui/joy/IconButton'
+import Store from '@mui/icons-material/Store'
+import Payment from '@mui/icons-material/Payment'
+import ChatBubbleOutlineOutlined from '@mui/icons-material/ChatBubbleOutlineOutlined'
+import MicNone from '@mui/icons-material/MicNone'
+import DashboardOutlined from '@mui/icons-material/DashboardOutlined'
+import EmojiEventsOutlined from '@mui/icons-material/EmojiEventsOutlined'
+import Pets from '@mui/icons-material/Pets'
+import ConfirmationNumberOutlined from '@mui/icons-material/ConfirmationNumberOutlined'
+import AccountBalanceWalletOutlined from '@mui/icons-material/AccountBalanceWalletOutlined'
+import GroupOutlined from '@mui/icons-material/GroupOutlined'
+import SupervisorAccountOutlined from '@mui/icons-material/SupervisorAccountOutlined'
+import Close from '@mui/icons-material/Close'
+
 import { useEffect, useMemo, useState } from 'react'
 import MenuListItem, { MenuItem } from '@/component/navigation/MenuListItem'
 import { usePathname, useRouter } from 'next/navigation'
 import useAdminStore from '@/store/useAdminStore'
+import Logo from '@/component/display/Logo'
 
 type Props = {
   open: boolean
@@ -71,7 +79,7 @@ const GNB = ({ open, onClose }: Props) => {
         })
       }
     })
-  }, [])
+  }, [menu])
 
   return (
     <Drawer
@@ -99,6 +107,16 @@ const GNB = ({ open, onClose }: Props) => {
           overflow: 'auto',
         }}
       >
+        <div className="flex items-center justify-between py-1">
+          <DialogTitle className="">
+            <Logo />
+          </DialogTitle>
+          {/*<ModalClose />*/}
+          <IconButton size="sm" onClick={onClose}>
+            <Close fontSize="small" />
+          </IconButton>
+        </div>
+        <Divider sx={{ mt: 'auto' }} />
         <DialogContent>
           <List className="flex flex-col gap-2">
             {menu.map((item, index) => (
@@ -106,6 +124,7 @@ const GNB = ({ open, onClose }: Props) => {
                 <MenuListItem
                   menuItem={item}
                   isOpen={openedMenuIndexes.includes(index)}
+                  isActive={pathname === item.pathname}
                   onClick={() => handleClickMenuItem(item, index)}
                 />
                 <div className="pl-2">
@@ -116,6 +135,7 @@ const GNB = ({ open, onClose }: Props) => {
                           key={`menu-${child.label}-${index}`}
                           menuItem={child}
                           isOpen={false}
+                          isActive={pathname === child.pathname}
                           onClick={() => handleClickMenuItem(child, index)}
                         />
                       ))}
@@ -140,16 +160,12 @@ const ownerMenu: MenuItem[] = [
     pathname: '/',
   },
   {
-    label: '업체',
+    label: '업체관리',
     icon: <Store />,
     children: [
       {
         label: '업체 정보',
         pathname: '/shop/info/',
-      },
-      {
-        label: '메이드/집사',
-        pathname: '/shop/staff/',
       },
       {
         label: '공지사항',
@@ -158,11 +174,25 @@ const ownerMenu: MenuItem[] = [
     ],
   },
   {
-    label: '패스',
+    label: '직원관리',
+    icon: <SupervisorAccountOutlined />,
+    children: [
+      {
+        label: '메이드/집사',
+        pathname: '/worker/staff/',
+      },
+      {
+        label: '매니저',
+        pathname: '/worker/manager/',
+      },
+    ],
+  },
+  {
+    label: '패스관리',
     icon: <EmojiEventsOutlined />,
     children: [
       {
-        label: '패스 관리',
+        label: '패스',
         pathname: '/pass/pass-info',
       },
       {
@@ -172,7 +202,7 @@ const ownerMenu: MenuItem[] = [
     ],
   },
   {
-    label: '녹음',
+    label: '녹음관리',
     icon: <MicNone />,
     children: [
       {
@@ -186,7 +216,7 @@ const ownerMenu: MenuItem[] = [
     ],
   },
   {
-    label: '츄르',
+    label: '츄르관리',
     icon: <Pets />,
     children: [
       {
@@ -196,11 +226,11 @@ const ownerMenu: MenuItem[] = [
     ],
   },
   {
-    label: '쿠폰',
+    label: '쿠폰관리',
     icon: <ConfirmationNumberOutlined />,
     children: [
       {
-        label: '쿠폰 관리',
+        label: '쿠폰',
         pathname: '/pass/pass-info',
       },
       {
@@ -210,7 +240,7 @@ const ownerMenu: MenuItem[] = [
     ],
   },
   {
-    label: '결제',
+    label: '결제관리',
     icon: <Payment />,
     children: [
       {
@@ -224,7 +254,7 @@ const ownerMenu: MenuItem[] = [
     ],
   },
   {
-    label: '정산',
+    label: '정산관리',
     icon: <AccountBalanceWalletOutlined />,
     children: [
       {
@@ -238,7 +268,7 @@ const ownerMenu: MenuItem[] = [
     ],
   },
   {
-    label: '손님',
+    label: '손님관리',
     icon: <GroupOutlined />,
     children: [
       {

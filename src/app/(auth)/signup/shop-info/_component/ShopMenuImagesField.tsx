@@ -1,7 +1,8 @@
 'use client'
 
 import { memo } from 'react'
-import { FormLabel, IconButton } from '@mui/joy'
+import FormLabel from '@mui/joy/FormLabel'
+import IconButton from '@mui/joy/IconButton'
 import { Add } from '@mui/icons-material'
 
 type Props = {

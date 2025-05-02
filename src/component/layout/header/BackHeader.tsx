@@ -1,7 +1,7 @@
 'use client'
 
 import { memo } from 'react'
-import { IconButton } from '@mui/joy'
+import IconButton from '@mui/joy/IconButton'
 import ArrowBackIos from '@mui/icons-material/ArrowBackIosNew'
 import { useRouter } from 'next/navigation'
 import Header from '@/component/layout/header/Header'

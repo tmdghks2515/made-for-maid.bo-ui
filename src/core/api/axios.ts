@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -6,6 +7,11 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  paramsSerializer: (params) =>
+    qs.stringify(params, {
+      arrayFormat: 'repeat',
+      skipNulls: true,
+    }),
 })
 
 axiosInstance.interceptors.request.use((config) => {

@@ -1,7 +1,10 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Button, FormControl, FormLabel, Input } from '@mui/joy'
+import Button from '@mui/joy/Button'
+import FormControl from '@mui/joy/FormControl'
+import FormLabel from '@mui/joy/FormLabel'
+import Input from '@mui/joy/Input'
 import { useState } from 'react'
 import useApi from '@/hook/useApi'
 import { CreateAdminCommand, CreateStaffCommand } from '@/core/type/user/admin.command'

@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@mui/joy'
+import Button from '@mui/joy/Button'
 import { useRouter } from 'next/navigation'
 
 export default function SignUpCompletePage() {
