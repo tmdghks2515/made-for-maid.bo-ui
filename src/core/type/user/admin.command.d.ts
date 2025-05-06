@@ -18,4 +18,10 @@ type CreateStaffCommand = {
   staffConcepts: StaffConcept[]
 }
 
-export { AdminKakaoSignInCommand, CreateAdminCommand, CreateStaffCommand }
+type UpdateProfileCommand = {
+  userId: string
+  nickname: string
+  profileImageUrl?: string
+}
+
+export { AdminKakaoSignInCommand, CreateAdminCommand, CreateStaffCommand, UpdateProfileCommand }

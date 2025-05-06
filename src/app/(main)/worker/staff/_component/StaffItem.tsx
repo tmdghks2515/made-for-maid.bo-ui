@@ -10,12 +10,10 @@ type Props = {
   onApprove: (staff: AdminDTO) => void
   onReject: (staff: AdminDTO) => void
   onClick: (staff: AdminDTO) => void
-  approveLoading: boolean
-  rejectLoading: boolean
 }
 
 // 츄르 수, 가입일, 승인버튼
-const StaffItem = ({ staff, onApprove, onReject, onClick, approveLoading, rejectLoading }: Props) => {
+const StaffItem = ({ staff, onApprove, onReject, onClick }: Props) => {
   return (
     <div
       className="bg-background py-3 px-4 rounded-lg shadow-sm flex flex-col gap-1 items-center"
@@ -26,15 +24,24 @@ const StaffItem = ({ staff, onApprove, onReject, onClick, approveLoading, reject
 
       {!staff.approvedAt && (
         <>
-          <Button size="sm" onClick={() => onApprove(staff)} loading={approveLoading} fullWidth>
+          <Button
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation()
+              onApprove(staff)
+            }}
+            fullWidth
+          >
             가입승인
           </Button>
           <Button
             size="sm"
             variant="soft"
             color="neutral"
-            onClick={() => onReject(staff)}
-            loading={rejectLoading}
+            onClick={(e) => {
+              e.stopPropagation()
+              onReject(staff)
+            }}
             fullWidth
           >
             삭제

@@ -30,6 +30,7 @@ export default function useApi<T, D>({
   const setGloabalLoading = useGlobalLoading((state) => state.setLoading)
 
   const execute = async (params?: T) => {
+    if (isLoading) return
     setIsLoading(true)
     globalLoading && setGloabalLoading(true)
     return api(params as T)

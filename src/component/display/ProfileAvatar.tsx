@@ -7,25 +7,29 @@ import { StaffType } from '@/core/type/user/admin.data'
 type Props = {
   profileImageUrl: string | undefined
   staffType: StaffType | undefined
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
 }
 const cloudFrontUrl = `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}`
 const defaultMaidProfileUrl = {
+  xl: '/common/profile-img/churr_default_profile_maid_120.png',
   lg: '/common/profile-img/churr_default_profile_maid_120.png',
   md: '/common/profile-img/churr_default_profile_maid_60.png',
   sm: '/common/profile-img/churr_default_profile_maid_60.png',
 }
 const defaultButlerProfileUrl = {
+  xl: '/common/profile-img/churr_default_profile_butler_120.png',
   lg: '/common/profile-img/churr_default_profile_butler_120.png',
   md: '/common/profile-img/churr_default_profile_butler_60.png',
   sm: '/common/profile-img/churr_default_profile_butler_60.png',
 }
 const defaultProfileUrl = {
+  xl: '/common/profile-img/churr_default_profile_120.png',
   lg: '/common/profile-img/churr_default_profile_120.png',
   md: '/common/profile-img/churr_default_profile_60.png',
   sm: '/common/profile-img/churr_default_profile_60.png',
 }
 const width = {
+  xl: 120,
   lg: 80,
   md: 50,
   sm: 30,

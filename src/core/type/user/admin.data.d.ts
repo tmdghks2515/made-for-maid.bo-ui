@@ -49,4 +49,15 @@ type AdminProfileDTO = {
   shopName?: string
 }
 
-export { SignInResStatus, AdminSignInResDTO, AdminDTO, Role, AdminProfileDTO, StaffConcept, StaffType }
+type StaffDetailDTO = {
+  userId: string
+  shopId: string
+  profileImageUrl?: string
+  staffType: StaffType
+  staffConcepts?: StaffConcept[]
+  nickname: string
+  introduction?: string
+  approvedAt?: string
+}
+
+export { SignInResStatus, AdminSignInResDTO, AdminDTO, Role, AdminProfileDTO, StaffConcept, StaffType, StaffDetailDTO }

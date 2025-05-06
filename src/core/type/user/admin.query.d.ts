@@ -1,6 +1,4 @@
-import { Role } from '@/core/type/user/admin.data'
-
-type StaffType = 'MAID' | 'BUTLER'
+import { Role, StaffType } from '@/core/type/user/admin.data'
 
 type SearchAdminQuery = {
   shopId?: string
@@ -9,4 +7,4 @@ type SearchAdminQuery = {
   staffType?: StaffType
 }
 
-export { SearchAdminQuery, StaffType }
+export { SearchAdminQuery }

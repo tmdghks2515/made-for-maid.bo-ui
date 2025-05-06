@@ -36,7 +36,7 @@ export default function ManagerListPage() {
     },
   })
 
-  const { execute: executeApprovalAdmin, isLoading: approveLoading } = useApi({
+  const { execute: executeApprovalAdmin } = useApi({
     api: adminApi.approveAdmin,
     onSuccess: (_, id) => {
       setManagers((prevState) =>
@@ -45,7 +45,7 @@ export default function ManagerListPage() {
     },
   })
 
-  const { execute: executeRejectAdmin, isLoading: rejectLoading } = useApi({
+  const { execute: executeRejectAdmin } = useApi({
     api: adminApi.rejectAdmin,
     onSuccess: (_, id) => {
       setManagers((prevState) => prevState.filter((manager) => manager.id !== id))
@@ -70,27 +70,24 @@ export default function ManagerListPage() {
   }, [])
 
   return (
-    completed && (
+    completed &&
+    (managers?.length ? (
       <>
         <span className="text-sm text-muted mb-2">총 {managerPage?.totalElements || 0}명</span>
         <div className="grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-2">
-          {managers?.length ? (
-            managers.map((manager) => (
-              <StaffItem
-                key={manager.id}
-                staff={manager}
-                onClick={handleClick}
-                onApprove={handleApprove}
-                onReject={handleReject}
-                approveLoading={approveLoading}
-                rejectLoading={rejectLoading}
-              />
-            ))
-          ) : (
-            <NoResultsText>조회된 메이드/집사 프로필이 없습니다.</NoResultsText>
-          )}
+          {managers.map((manager) => (
+            <StaffItem
+              key={manager.id}
+              staff={manager}
+              onClick={handleClick}
+              onApprove={handleApprove}
+              onReject={handleReject}
+            />
+          ))}
         </div>
       </>
-    )
+    ) : (
+      <NoResultsText>조회된 매니저가 없습니다.</NoResultsText>
+    ))
   )
 }
