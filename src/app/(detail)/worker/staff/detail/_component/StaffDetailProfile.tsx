@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { StaffType } from '@/core/type/user/admin.data'
 import ProfileAvatar from '@/component/display/ProfileAvatar'
 import Edit from '@mui/icons-material/Edit'
@@ -9,6 +9,7 @@ import Input from '@mui/joy/Input'
 import Button from '@mui/joy/Button'
 import useApi from '@/hook/useApi'
 import { adminApi } from '@/core/api/user/admin.api'
+import { imageApi } from '@/core/api/common/image.api'
 
 type Props = {
   staffId: string
@@ -39,10 +40,35 @@ function StaffDetailProfile({
     },
   })
 
+  const { execute: uploadImage } = useApi({
+    api: imageApi.uploadImage,
+    onSuccess: (uploadedImage) => {
+      console.log('uploadedImage >>', uploadedImage)
+    },
+  })
+
   const handleCancel = () => {
     setIsEditMode(false)
     setNickname(nicknameProp)
     setProfileImageUrl(profileImageUrlProp)
+  }
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // 클릭 시 실행되는 함수
+  const handleUploadClick = () => {
+    fileInputRef.current?.click() // input[type=file] 클릭 트리거
+  }
+
+  // 파일이 선택되었을 때 실행되는 함수
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    uploadImage({
+      file,
+      imageType: 'PROFILE',
+    })
   }
 
   return (
@@ -54,9 +80,7 @@ function StaffDetailProfile({
               <ProfileAvatar profileImageUrl={profileImageUrl} size="xl" staffType={staffType} />
               <span
                 className="absolute bottom-0 right-0 bg-primary rounded-full text-primary-foreground border-2 border-primary-foreground w-8 h-8 flex items-center justify-center cursor-pointer"
-                onClick={() => {
-                  setIsEditMode(true)
-                }}
+                onClick={handleUploadClick}
               >
                 <Camera sx={{ fontSize: 16 }} />
               </span>
@@ -104,6 +128,8 @@ function StaffDetailProfile({
           </>
         )}
       </div>
+
+      <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
     </>
   )
 }
