@@ -1,5 +1,5 @@
 import MainHeader from '@/component/layout/header/MainHeader'
-import MainContainer from '@/component/layout/container/MainContainer'
+import MainWrapper from '@/component/layout/wrapper/MainWrapper'
 
 export default function MainLayout({
   children,
@@ -9,7 +9,7 @@ export default function MainLayout({
   return (
     <>
       <MainHeader />
-      <MainContainer className="bg-border pt-4">{children}</MainContainer>
+      {children}
     </>
   )
 }

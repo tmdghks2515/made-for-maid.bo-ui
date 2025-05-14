@@ -19,17 +19,17 @@ export default function MainHeader() {
   return (
     <>
       <Header>
-        <div className="flex-3 flex gap-3 items-center">
+        <div className="flex-1">
           <IconButton variant="outlined" onClick={() => setGNBOpen(true)}>
             <Menu />
           </IconButton>
-          <Logo size="sm" />
+        </div>
+        {/* <Logo size="sm" /> */}
+        <div className="flex-3 flex items-center justify-center">
           {headerTitle && <h3 className="font-bold">{headerTitle}</h3>}
         </div>
-        <div className="flex-1">
-          <div className="flex items-center justify-end gap-2">
-            {admin && <ProfileAvatar staffType={admin.staffType} profileImageUrl={admin.profileImageUrl} size="sm" />}
-          </div>
+        <div className="flex-1 flex items-center justify-end gap-2">
+          {admin && <ProfileAvatar staffType={admin.staffType} profileImageUrl={admin.profileImageUrl} size="sm" />}
         </div>
       </Header>
       <GNB open={isGNBOpen} onClose={() => setGNBOpen(false)} />

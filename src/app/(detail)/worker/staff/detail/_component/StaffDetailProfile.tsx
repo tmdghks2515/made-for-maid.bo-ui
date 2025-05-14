@@ -5,6 +5,7 @@ import { StaffType } from '@/core/type/user/admin.data'
 import ProfileAvatar from '@/component/display/ProfileAvatar'
 import Edit from '@mui/icons-material/Edit'
 import Camera from '@mui/icons-material/CameraAlt'
+import Close from '@mui/icons-material/Close'
 import Input from '@mui/joy/Input'
 import Button from '@mui/joy/Button'
 import useApi from '@/hook/useApi'
@@ -72,7 +73,7 @@ function StaffDetailProfile({
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // 클릭 시 실행되는 함수
-  const handleUploadClick = () => {
+  const handleClickUpload = () => {
     fileInputRef.current?.click() // input[type=file] 클릭 트리거
   }
 
@@ -87,16 +88,32 @@ function StaffDetailProfile({
     })
   }
 
+  const handleClickDelete = () => {
+    setUpdateProfileParams((prev) => ({
+      ...prev,
+      profileImageId: undefined,
+      profileImageUrl: undefined,
+    }))
+  }
+
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-2 mb-8">
         {isEditMode ? (
           <>
             <div className="relative">
-              <ProfileAvatar profileImageUrl={profileImageUrl} size="xl" staffType={staffType} />
+              <ProfileAvatar profileImageUrl={profileImageUrl} size="xl" staffType={staffType} useOriginal={true} />
+              {profileImageUrl && (
+                <span
+                  className="absolute top-0 right-0 bg-red-300 rounded-full text-primary-foreground border-2 border-primary-foreground w-8 h-8 flex items-center justify-center cursor-pointer"
+                  onClick={handleClickDelete}
+                >
+                  <Close sx={{ fontSize: 16 }} />
+                </span>
+              )}
               <span
                 className="absolute bottom-0 right-0 bg-primary rounded-full text-primary-foreground border-2 border-primary-foreground w-8 h-8 flex items-center justify-center cursor-pointer"
-                onClick={handleUploadClick}
+                onClick={handleClickUpload}
               >
                 <Camera sx={{ fontSize: 16 }} />
               </span>
@@ -131,7 +148,7 @@ function StaffDetailProfile({
         ) : (
           <>
             <div className="relative">
-              <ProfileAvatar profileImageUrl={profileImageUrl} size="xl" staffType={staffType} />
+              <ProfileAvatar profileImageUrl={profileImageUrl} size="xl" staffType={staffType} useOriginal={true} />
               <span
                 className="absolute bottom-0 right-0 bg-primary rounded-full text-primary-foreground border-2 border-primary-foreground w-8 h-8 flex items-center justify-center cursor-pointer"
                 onClick={() => {

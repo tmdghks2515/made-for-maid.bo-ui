@@ -1,4 +1,4 @@
-import MainContainer from '@/component/layout/container/MainContainer'
+import MainWrapper from '@/component/layout/wrapper/MainWrapper'
 import BackHeader from '@/component/layout/header/BackHeader'
 
 export default function DetailLayout({
@@ -9,7 +9,7 @@ export default function DetailLayout({
   return (
     <>
       <BackHeader />
-      <MainContainer>{children}</MainContainer>
+      <MainWrapper>{children}</MainWrapper>
     </>
   )
 }

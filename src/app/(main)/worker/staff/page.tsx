@@ -11,6 +11,7 @@ import StaffItem from '@/app/(main)/worker/staff/_component/StaffItem'
 import { useRouter } from 'next/navigation'
 import dayjs from 'dayjs'
 import NoResultsText from '@/component/ui/NoResultsText'
+import MainWrapper from '@/component/layout/wrapper/MainWrapper'
 
 export default function StaffListPage() {
   const [query, setQuery] = useState<SearchAdminQuery & PageableParams>({
@@ -70,24 +71,27 @@ export default function StaffListPage() {
   }, [])
 
   return (
-    completed &&
-    (staffList?.length ? (
-      <>
-        <span className="text-sm text-muted mb-2">총 {staffPage?.totalElements || 0}명</span>
-        <div className="grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-2">
-          {staffList.map((staff) => (
-            <StaffItem
-              key={staff.id}
-              staff={staff}
-              onClick={handleClick}
-              onApprove={handleApprove}
-              onReject={handleReject}
-            />
-          ))}
-        </div>
-      </>
-    ) : (
-      <NoResultsText>조회된 메이드/집사가 없습니다.</NoResultsText>
-    ))
+    completed && (
+      <MainWrapper className="bg-border pt-4">
+        {staffList?.length ? (
+          <>
+            <span className="text-sm text-muted mb-2">총 {staffPage?.totalElements || 0}명</span>
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-2">
+              {staffList.map((staff) => (
+                <StaffItem
+                  key={staff.id}
+                  staff={staff}
+                  onClick={handleClick}
+                  onApprove={handleApprove}
+                  onReject={handleReject}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <NoResultsText>조회된 메이드/집사가 없습니다.</NoResultsText>
+        )}
+      </MainWrapper>
+    )
   )
 }

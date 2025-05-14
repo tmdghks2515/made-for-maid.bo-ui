@@ -11,6 +11,7 @@ import { adminApi } from '@/core/api/user/admin.api'
 import dayjs from 'dayjs'
 import StaffItem from '@/app/(main)/worker/staff/_component/StaffItem'
 import NoResultsText from '@/component/ui/NoResultsText'
+import MainWrapper from '@/component/layout/wrapper/MainWrapper'
 
 export default function ManagerListPage() {
   const [query, setQuery] = useState<SearchAdminQuery & PageableParams>({
@@ -70,24 +71,27 @@ export default function ManagerListPage() {
   }, [])
 
   return (
-    completed &&
-    (managers?.length ? (
-      <>
-        <span className="text-sm text-muted mb-2">총 {managerPage?.totalElements || 0}명</span>
-        <div className="grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-2">
-          {managers.map((manager) => (
-            <StaffItem
-              key={manager.id}
-              staff={manager}
-              onClick={handleClick}
-              onApprove={handleApprove}
-              onReject={handleReject}
-            />
-          ))}
-        </div>
-      </>
-    ) : (
-      <NoResultsText>조회된 매니저가 없습니다.</NoResultsText>
-    ))
+    completed && (
+      <MainWrapper className="bg-border pt-4">
+        {managers?.length ? (
+          <>
+            <span className="text-sm text-muted mb-2">총 {managerPage?.totalElements || 0}명</span>
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-2">
+              {managers.map((manager) => (
+                <StaffItem
+                  key={manager.id}
+                  staff={manager}
+                  onClick={handleClick}
+                  onApprove={handleApprove}
+                  onReject={handleReject}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <NoResultsText>조회된 매니저가 없습니다.</NoResultsText>
+        )}
+      </MainWrapper>
+    )
   )
 }
