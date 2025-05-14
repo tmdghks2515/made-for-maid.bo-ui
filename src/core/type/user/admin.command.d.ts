@@ -21,6 +21,7 @@ type CreateStaffCommand = {
 type UpdateProfileCommand = {
   userId: string
   nickname: string
+  profileImageId?: string
   profileImageUrl?: string
 }
 

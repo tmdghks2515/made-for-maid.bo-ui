@@ -14,6 +14,7 @@ import { imageApi } from '@/core/api/common/image.api'
 type Props = {
   staffId: string
   nickname: string
+  profileImageId: string | undefined
   profileImageUrl: string | undefined
   staffType: StaffType
   onChange: (nickname: string, profileImageUrl: string | undefined) => void
@@ -22,17 +23,24 @@ type Props = {
 function StaffDetailProfile({
   staffId,
   nickname: nicknameProp,
+  profileImageId: profileImageIdProp,
   profileImageUrl: profileImageUrlProp,
   staffType,
   onChange,
 }: Props) {
   const [isEditMode, setIsEditMode] = useState(false)
-  const [nickname, setNickname] = useState(nicknameProp)
-  const [profileImageUrl, setProfileImageUrl] = useState(profileImageUrlProp)
+  const [updateProfileParams, setUpdateProfileParams] = useState({
+    userId: staffId,
+    nickname: nicknameProp,
+    profileImageUrl: profileImageUrlProp,
+    profileImageId: profileImageIdProp,
+  })
+
+  const { nickname, profileImageUrl, profileImageId } = updateProfileParams
 
   const saveDisabled = !nickname.trim() || (nickname === nicknameProp && profileImageUrl === profileImageUrlProp)
 
-  const { execute, isLoading } = useApi({
+  const { execute: executeUpdateProfile, isLoading } = useApi({
     api: adminApi.updateProfile,
     onSuccess: () => {
       onChange(nickname, profileImageUrl)
@@ -40,17 +48,25 @@ function StaffDetailProfile({
     },
   })
 
-  const { execute: uploadImage } = useApi({
+  const { execute: executeUploadImage } = useApi({
     api: imageApi.uploadImage,
     onSuccess: (uploadedImage) => {
-      console.log('uploadedImage >>', uploadedImage)
+      setUpdateProfileParams((prev) => ({
+        ...prev,
+        profileImageId: uploadedImage.id,
+        profileImageUrl: uploadedImage.path + uploadedImage.fileName,
+      }))
     },
   })
 
   const handleCancel = () => {
     setIsEditMode(false)
-    setNickname(nicknameProp)
-    setProfileImageUrl(profileImageUrlProp)
+    setUpdateProfileParams({
+      userId: staffId,
+      nickname: nicknameProp,
+      profileImageUrl: profileImageUrlProp,
+      profileImageId: profileImageIdProp,
+    })
   }
 
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -65,7 +81,7 @@ function StaffDetailProfile({
     const file = event.target.files?.[0]
     if (!file) return
 
-    uploadImage({
+    executeUploadImage({
       file,
       imageType: 'PROFILE',
     })
@@ -86,7 +102,16 @@ function StaffDetailProfile({
               </span>
             </div>
             <div>
-              <Input value={nickname} onChange={(e) => setNickname(e.target.value)} name="nickname" />
+              <Input
+                value={nickname}
+                onChange={(e) =>
+                  setUpdateProfileParams((prev) => ({
+                    ...prev,
+                    nickname: e.target.value,
+                  }))
+                }
+                name="nickname"
+              />
             </div>
 
             <div className="flex gap-2">
@@ -97,13 +122,7 @@ function StaffDetailProfile({
                 variant="soft"
                 disabled={saveDisabled}
                 loading={isLoading}
-                onClick={() =>
-                  execute({
-                    userId: staffId,
-                    nickname,
-                    profileImageUrl,
-                  })
-                }
+                onClick={() => executeUpdateProfile(updateProfileParams)}
               >
                 저장
               </Button>

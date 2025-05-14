@@ -76,6 +76,7 @@ export default function StaffDetailPage() {
       {/* 프로필 영역 */}
       <StaffDetailProfile
         nickname={staff.nickname}
+        profileImageId={staff.profileImageId}
         profileImageUrl={staff.profileImageUrl}
         staffId={staff.userId}
         staffType={staff.staffType}

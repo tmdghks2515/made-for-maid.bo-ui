@@ -25,6 +25,7 @@ type AdminDTO = {
   nickname: string
   roles: Role[]
   primaryRole: Role
+  profileImageId?: string
   profileImageUrl?: string
   shopId?: string
   staffType?: StaffType
@@ -52,6 +53,7 @@ type AdminProfileDTO = {
 type StaffDetailDTO = {
   userId: string
   shopId: string
+  profileImageId?: string
   profileImageUrl?: string
   staffType: StaffType
   staffConcepts?: StaffConcept[]
