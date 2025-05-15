@@ -44,7 +44,7 @@ export default function ShopInfoPage() {
       contactNumber: '',
       shopConcepts: [],
       snsLinks: [],
-      menuImageUrls: [],
+      menuImages: [],
     },
     validationSchema,
     validateOnMount: true,
@@ -56,7 +56,7 @@ export default function ShopInfoPage() {
   if (!isClient) return null
   return (
     <>
-      <div>
+      <div className="mb-4">
         <p className="text-2xl font-bold mb-8">업체 정보를 입력해주세요.</p>
 
         <div className="flex flex-col gap-4">
@@ -70,7 +70,7 @@ export default function ShopInfoPage() {
 
           <Divider sx={{ marginY: 2 }} />
 
-          <ShopMenuImagesField menuImageUrls={values.menuImageUrls} setFieldValue={setFieldValue} />
+          <ShopMenuImagesField menuImages={values.menuImages} setFieldValue={setFieldValue} />
         </div>
       </div>
 

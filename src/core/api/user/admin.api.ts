@@ -22,15 +22,15 @@ export const adminApi = {
     axiosInstance.post(`/user/admin/profile/${userId}`),
   searchAdmins: (params: SearchAdminQuery & PageableParams): Promise<AxiosResponse<Page<AdminDTO>>> =>
     axiosInstance.get(`/user/admin/search`, { params }),
-  approveAdmin: (userId: string): Promise<AxiosResponse<void>> => axiosInstance.post(`/user/admin/approve/${userId}`),
-  rejectAdmin: (userId: string): Promise<AxiosResponse<void>> => axiosInstance.post(`/user/admin/reject/${userId}`),
+  approveAdmin: (userId: string): Promise<AxiosResponse<void>> => axiosInstance.put(`/user/admin/approve/${userId}`),
+  rejectAdmin: (userId: string): Promise<AxiosResponse<void>> => axiosInstance.put(`/user/admin/reject/${userId}`),
   getStaffDetail: (id: string): Promise<AxiosResponse<StaffDetailDTO>> => axiosInstance.get(`/user/admin/staff/${id}`),
   updateStaffintroduction: (params: { userId: string; introduction: string | undefined }): Promise<AxiosResponse> =>
-    axiosInstance.post(`/user/admin/staff/introduction`, params),
+    axiosInstance.put(`/user/admin/staff/introduction`, params),
   updateStaffConcepts: (params: {
     userId: string
     staffConcepts: StaffConcept[] | undefined
-  }): Promise<AxiosResponse> => axiosInstance.post(`/user/admin/staff/concepts`, params),
+  }): Promise<AxiosResponse> => axiosInstance.put(`/user/admin/staff/concepts`, params),
   updateProfile: (params: UpdateProfileCommand): Promise<AxiosResponse> =>
-    axiosInstance.post(`/user/admin/profile`, params),
+    axiosInstance.put(`/user/admin/profile`, params),
 }

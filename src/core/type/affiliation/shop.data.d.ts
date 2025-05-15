@@ -32,14 +32,22 @@ type SnsLinkDTO = {
   displayOrder: number
 }
 
+type ShopMenuImageDTO = {
+  id?: string
+  shopId?: string
+  imageId: string
+  imageUrl: string
+  displayOrder: number
+}
+
 type ShopDTO = {
   id?: string
   name: string
   contactNumber: string
   shopConcepts: ShopConcept[]
-  menuImageUrls: string[]
+  menuImages: ShopMenuImageDTO[]
   snsLinks: SnsLinkDTO[]
   createdAt?: string
 }
 
-export { ShopDTO, SnsLinkDTO, ShopConcept, SnsLinkType, SnsType }
+export { ShopDTO, SnsLinkDTO, ShopConcept, SnsLinkType, SnsType, ShopMenuImageDTO }

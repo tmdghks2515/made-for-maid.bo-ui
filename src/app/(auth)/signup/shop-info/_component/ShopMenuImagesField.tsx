@@ -7,19 +7,27 @@ import Add from '@mui/icons-material/Add'
 import Close from '@mui/icons-material/Close'
 import useApi from '@/hook/useApi'
 import { imageApi } from '@/core/api/common/image.api'
+import { ShopMenuImageDTO } from '@/core/type/affiliation/shop.data'
 
 type Props = {
-  setFieldValue: (field: string, value: string[]) => void
-  menuImageUrls: string[]
+  menuImages: ShopMenuImageDTO[]
+  setFieldValue: (field: string, value: ShopMenuImageDTO[]) => void
 }
 
-const ShopMenuImagesField = ({ setFieldValue, menuImageUrls }: Props) => {
+const ShopMenuImagesField = ({ setFieldValue, menuImages }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { execute: executeUploadFile } = useApi({
     api: imageApi.uploadImage,
     onSuccess: (uploadedImage) => {
-      setFieldValue('menuImageUrls', [...menuImageUrls, uploadedImage.path + uploadedImage.fileName])
+      setFieldValue('menuImages', [
+        ...menuImages,
+        {
+          imageId: uploadedImage.id,
+          imageUrl: uploadedImage.path + uploadedImage.fileName,
+          displayOrder: menuImages.length,
+        },
+      ])
     },
   })
 
@@ -44,15 +52,15 @@ const ShopMenuImagesField = ({ setFieldValue, menuImageUrls }: Props) => {
       <FormLabel>메뉴 이미지</FormLabel>
       {/* 가로로 꽉찰시 다음 라인에서 노출 */}
       <div className="flex flex-wrap gap-2">
-        <IconButton className="w-18 h-18">
-          <Add fontSize="large" onClick={handleClickAddImage} />
+        <IconButton className="w-18 h-18" onClick={handleClickAddImage}>
+          <Add fontSize="large" />
         </IconButton>
 
         {/* Display existing menu images */}
-        {menuImageUrls.map((url, index) => (
+        {menuImages.map((menuImage, index) => (
           <div key={index} className="relative w-18 h-18">
             <img
-              src={process.env.NEXT_PUBLIC_CLOUDFRONT_URL + '/' + url}
+              src={process.env.NEXT_PUBLIC_CLOUDFRONT_URL + '/' + menuImage.imageUrl}
               alt={`Menu Image ${index}`}
               className={'w-full h-full object-cover'}
             />
@@ -68,8 +76,8 @@ const ShopMenuImagesField = ({ setFieldValue, menuImageUrls }: Props) => {
               size="sm"
               onClick={() => {
                 setFieldValue(
-                  'menuImageUrls',
-                  menuImageUrls.filter((_, i) => i !== index),
+                  'menuImages',
+                  menuImages.filter((_, i) => i !== index),
                 )
               }}
             >

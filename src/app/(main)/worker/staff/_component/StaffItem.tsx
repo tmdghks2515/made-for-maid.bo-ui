@@ -16,7 +16,7 @@ type Props = {
 const StaffItem = ({ staff, onApprove, onReject, onClick }: Props) => {
   return (
     <div
-      className="bg-background py-3 px-4 rounded-lg shadow-sm flex flex-col gap-1 items-center"
+      className="bg-background py-3 px-4 rounded-lg shadow-sm flex flex-col gap-1 items-center cursor-pointer hover:bg-background/50"
       onClick={() => onClick(staff)}
     >
       <ProfileAvatar staffType={staff.staffType} profileImageUrl={staff.profileImageUrl} />

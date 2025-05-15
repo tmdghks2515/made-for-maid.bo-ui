@@ -80,7 +80,7 @@ export default function useCode() {
         }
       }
 
-      return displayName || '알수 없읍'
+      return displayName || ''
     },
     [codeTree],
   )

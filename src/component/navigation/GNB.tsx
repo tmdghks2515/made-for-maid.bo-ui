@@ -165,7 +165,7 @@ const ownerMenu: MenuItem[] = [
     children: [
       {
         label: '업체 정보',
-        pathname: '/shop/info/',
+        pathname: '/shop/',
       },
       {
         label: '공지사항',
@@ -296,7 +296,7 @@ const managerMenu: MenuItem[] = [
     children: [
       {
         label: '업체 정보',
-        pathname: '/shop/info/',
+        pathname: '/shop/',
       },
       {
         label: '메이드/집사',
