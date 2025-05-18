@@ -23,4 +23,6 @@ type Page<T> = {
   empty: boolean
 }
 
-export { ValueLabel, Role, PageableParams, Page }
+type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+
+export { ValueLabel, Role, PageableParams, Page, Size }

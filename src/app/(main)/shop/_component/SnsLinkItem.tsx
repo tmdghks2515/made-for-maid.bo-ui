@@ -14,10 +14,11 @@ type Props = {
   snsTypeOptions: ValueLabel[]
   onChange: (snsLink: SnsLinkDTO) => void
   onRemove: () => void
+  getDisplayName?: (code: string) => string
   isEditMode?: boolean
 }
 
-const SnsLinkItem = ({ snsLink, onChange, snsTypeOptions, onRemove, isEditMode }: Props) => {
+const SnsLinkItem = ({ snsLink, onChange, snsTypeOptions, onRemove, isEditMode, getDisplayName }: Props) => {
   return (
     <div className="flex gap-1">
       {isEditMode ? (
@@ -46,10 +47,11 @@ const SnsLinkItem = ({ snsLink, onChange, snsTypeOptions, onRemove, isEditMode }
           </IconButton>
         </>
       ) : (
-        <>
-          <span>{snsLink.linkType}</span>
+        <div className="flex gap-4">
+          {/* <img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/common/logo/instagram_logo.svg`} alt="sns 로고" /> */}
+          <span>{getDisplayName?.(snsLink.snsType) || snsLink.snsType}</span>
           <span>{snsLink.linkUrl}</span>
-        </>
+        </div>
       )}
     </div>
   )

@@ -1,4 +1,4 @@
-import { ShopConcept, ShopDTO, ShopMenuImageDTO } from '@/core/type/affiliation/shop.data'
+import { ShopConcept, ShopDTO, ShopMenuImageDTO, SnsLinkDTO } from '@/core/type/affiliation/shop.data'
 import { AxiosResponse } from 'axios'
 import axiosInstance from '@/core/api/axios'
 import { ValueLabel } from '@/core/type/shared/shared.data'
@@ -14,6 +14,8 @@ export const shopApi = {
   updateShopMenuImages: (params: {
     shopId: string
     newMenuImages: ShopMenuImageDTO[]
-  }): Promise<AxiosResponse<ShopDTO>> => axiosInstance.put(`/affiliation/shop/update/menu/images`, params),
+  }): Promise<AxiosResponse<ShopDTO>> => axiosInstance.put(`/affiliation/shop/update/menu-images`, params),
+  updateShopSnsLinks: (params: { shopId: string; newSnsLinks: SnsLinkDTO[] }): Promise<AxiosResponse<ShopDTO>> =>
+    axiosInstance.put(`/affiliation/shop/update/sns-links`, params),
   getShopDetail: (): Promise<AxiosResponse<ShopDTO>> => axiosInstance.get(`/affiliation/shop`),
 }

@@ -9,6 +9,7 @@ import ShopNameField from './_component/ShopNameField'
 import { ShopDTO } from '@/core/type/affiliation/shop.data'
 import ShopConceptsField from './_component/ShopConceptsField'
 import ShopSnsLinksField from './_component/ShopSnsLinksField'
+import ShopMenuImagesField from './_component/ShopMenuImagesField'
 
 export default function ShopInfoPage() {
   const [shop, setShop] = useState<ShopDTO>({
@@ -20,7 +21,7 @@ export default function ShopInfoPage() {
     createdAt: '',
   })
 
-  const setHederTitle = useHeaderStore((state) => state.setHeaderTitle)
+  const setHeaderTitle = useHeaderStore((state) => state.setHeaderTitle)
 
   const { execute } = useApi({
     api: shopApi.getShopDetail,
@@ -29,7 +30,7 @@ export default function ShopInfoPage() {
   })
 
   useEffect(() => {
-    setHederTitle('업체 정보')
+    setHeaderTitle('업체 정보')
   }, [])
 
   if (!shop || !shop.id) return null
@@ -50,6 +51,11 @@ export default function ShopInfoPage() {
           shopId={shop.id}
           snsLinks={shop.snsLinks}
           onChange={(newSnsLinks) => setShop((prev) => ({ ...prev, snsLinks: newSnsLinks }))}
+        />
+        <ShopMenuImagesField
+          shopId={shop.id}
+          menuImages={shop.menuImages}
+          onChange={(newMenuImages) => setShop((prev) => ({ ...prev, menuImages: newMenuImages }))}
         />
       </div>
     </MainWrapper>

@@ -26,7 +26,14 @@ function ShopNameField({ shopId, name: nameProp, onChange }: Props) {
 
   return (
     <FormControl required={isEditMode}>
-      <FormLabel htmlFor="name">업체명</FormLabel>
+      <div className="flex items-center justify-between">
+        <FormLabel>업체명</FormLabel>
+        {!isEditMode && (
+          <IconButton onClick={() => setIsEditMode(true)} size="sm">
+            <Edit sx={{ fontSize: 12 }} />
+          </IconButton>
+        )}
+      </div>
 
       {isEditMode ? (
         <div className="flex gap-1">
@@ -43,10 +50,9 @@ function ShopNameField({ shopId, name: nameProp, onChange }: Props) {
             취소
           </Button>
           <Button
-            variant="solid"
-            color="primary"
             size="sm"
             loading={isLoading}
+            disabled={!name || name === nameProp}
             onClick={() => {
               execute({ shopId, newName: name })
             }}
@@ -57,9 +63,6 @@ function ShopNameField({ shopId, name: nameProp, onChange }: Props) {
       ) : (
         <div className={'text-center'}>
           <span className="mr-2">{name}</span>
-          <IconButton onClick={() => setIsEditMode(true)} size="sm">
-            <Edit sx={{ fontSize: 12 }} />
-          </IconButton>
         </div>
       )}
     </FormControl>

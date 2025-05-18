@@ -29,7 +29,14 @@ function ShopConceptsField({ shopId, concepts: conceptsProp, onChange }: Props) 
 
   return (
     <FormControl>
-      <FormLabel>컨셉</FormLabel>
+      <div className="flex items-center justify-between">
+        <FormLabel>컨셉</FormLabel>
+        {!isEditMode && (
+          <IconButton onClick={() => setIsEditMode(true)} size="sm">
+            <Edit sx={{ fontSize: 12 }} />
+          </IconButton>
+        )}
+      </div>
       {isEditMode ? (
         <div className="flex gap-1">
           <MultiSelectChips
@@ -50,8 +57,6 @@ function ShopConceptsField({ shopId, concepts: conceptsProp, onChange }: Props) 
             취소
           </Button>
           <Button
-            variant="solid"
-            color="primary"
             size="sm"
             loading={isLoading}
             onClick={() => {
@@ -62,15 +67,12 @@ function ShopConceptsField({ shopId, concepts: conceptsProp, onChange }: Props) 
           </Button>
         </div>
       ) : (
-        <div className={'flex gap-2 items-center justify-center'}>
+        <div className={'flex flex-wrap gap-2 items-center justify-center'}>
           {concepts.map((concept) => (
             <Chip color="primary" key={concept} className="text-xs">
               {getDisplayName(concept)}
             </Chip>
           ))}
-          <IconButton onClick={() => setIsEditMode(true)} size="sm">
-            <Edit sx={{ fontSize: 12 }} />
-          </IconButton>
         </div>
       )}
     </FormControl>
