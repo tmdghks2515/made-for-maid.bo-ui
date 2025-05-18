@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useState } from 'react'
 import useApi from '@/hook/useApi'
-import { shopApi } from '@/core/api/affiliate/shop.api'
+import { shopService } from '@/core/service/affiliate/shop.service'
 import Autocomplete from '@mui/joy/Autocomplete'
 import { ValueLabel } from '@/core/type/shared/shared.data'
 import useDebounce from '@/hook/useDebounce'
@@ -18,7 +18,7 @@ const ShopSelect = ({ onChange }: Props) => {
   const debouncedKeyword = useDebounce(keyword, 500)
 
   const { execute, data: shops = [] } = useApi<string, ValueLabel[]>({
-    api: shopApi.autoCompleteSearch,
+    api: shopService.autoCompleteSearch,
   })
 
   useEffect(() => {

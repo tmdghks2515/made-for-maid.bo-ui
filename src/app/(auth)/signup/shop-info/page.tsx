@@ -13,7 +13,7 @@ import ShopMenuImagesField from '@/app/(auth)/signup/shop-info/_component/ShopMe
 import * as yup from 'yup'
 import { contactNumberRegex } from '@/util/regex.util'
 import useApi from '@/hook/useApi'
-import { shopApi } from '@/core/api/affiliate/shop.api'
+import { shopService } from '@/core/service/affiliate/shop.service'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function ShopInfoPage() {
@@ -23,7 +23,7 @@ export default function ShopInfoPage() {
   const role = searchParams.get('role')
 
   const { execute, isLoading } = useApi({
-    api: shopApi.createShop,
+    api: shopService.createShop,
     onSuccess: (response) => {
       router.push(`/signup/nickname?role=${role}&shopId=${response.id}`)
     },

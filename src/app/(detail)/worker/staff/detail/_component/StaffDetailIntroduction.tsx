@@ -6,7 +6,7 @@ import Edit from '@mui/icons-material/Edit'
 import { Textarea } from '@mui/joy'
 import Button from '@mui/joy/Button'
 import useApi from '@/hook/useApi'
-import { adminApi } from '@/core/api/user/admin.api'
+import { adminService } from '@/core/service/user/admin.service'
 
 type Props = {
   staffId: string
@@ -19,7 +19,7 @@ function StaffDetailIntroduction({ staffId, introduction, onChange }: Props) {
   const [isEditMode, setIsEditMode] = useState(false)
 
   const { execute, isLoading } = useApi({
-    api: adminApi.updateStaffintroduction,
+    api: adminService.updateStaffintroduction,
     onSuccess: (_) => {
       onChange(introductionState)
       setIsEditMode(false)

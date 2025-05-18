@@ -6,7 +6,7 @@ import { Button, FormControl, FormLabel, IconButton } from '@mui/joy'
 import Edit from '@mui/icons-material/Edit'
 import Add from '@mui/icons-material/Add'
 import useApi from '@/hook/useApi'
-import { shopApi } from '@/core/api/affiliate/shop.api'
+import { shopService } from '@/core/service/affiliate/shop.service'
 
 type Props = {
   shopId: string
@@ -22,7 +22,7 @@ function ShopSnsLinksField({ shopId, snsLinks: snsLinksProp, onChange }: Props) 
   const snsTypeOptions = makeOptions('SNS_TYPE')
 
   const { execute, isLoading } = useApi({
-    api: shopApi.updateShopSnsLinks,
+    api: shopService.updateShopSnsLinks,
     onSuccess: (resData) => {
       setSnsLinks(resData.snsLinks)
       onChange(resData.snsLinks)

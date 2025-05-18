@@ -3,7 +3,7 @@
 import BackHeader from '@/component/layout/header/BackHeader'
 import useApi from '@/hook/useApi'
 import { AdminProfileDTO, AdminSignInResDTO } from '@/core/type/user/admin.data'
-import { adminApi } from '@/core/api/user/admin.api'
+import { adminService } from '@/core/service/user/admin.service'
 import { useRouter } from 'next/navigation'
 import IconButton from '@mui/joy/IconButton'
 import ProfileItem from '@/app/(auth)/profile/_component/ProfileItem'
@@ -18,7 +18,7 @@ export default function ProfilePage() {
   const { openSnackbar } = useSnackbar()
 
   const { data: profiles = [] } = useApi<void, AdminProfileDTO[]>({
-    api: adminApi.getProfiles,
+    api: adminService.getProfiles,
     executeImmediately: true,
     globalLoading: true,
     onError: () => {
@@ -27,7 +27,7 @@ export default function ProfilePage() {
   })
 
   const { execute } = useApi<string, AdminSignInResDTO>({
-    api: adminApi.selectProfile,
+    api: adminService.selectProfile,
     onSuccess: (resData) => {
       if (!resData.admin || !resData.accessToken) {
         openSnackbar({

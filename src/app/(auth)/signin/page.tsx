@@ -3,7 +3,7 @@
 import KakaoSignInButton from '@/component/button/KakaoSignInButton'
 import { motion } from 'framer-motion'
 import useApi from '@/hook/useApi'
-import { adminAuthApi } from '@/core/api/user/admin-auth.api'
+import { adminAuthService } from '@/core/service/user/admin-auth.service'
 import { AdminSignInResDTO } from '@/core/type/user/admin.data'
 import { useRouter } from 'next/navigation'
 import useAdminStore from '@/store/useAdminStore'
@@ -19,7 +19,7 @@ export default function SignInPage() {
   const { setAccessToken } = useAuthorize()
 
   const { execute } = useApi<AdminKakaoSignInCommand, AdminSignInResDTO>({
-    api: adminAuthApi.adminKakaoSignIn,
+    api: adminAuthService.adminKakaoSignIn,
     onSuccess: (res: AdminSignInResDTO) => {
       res.accessToken && setAccessToken(res.accessToken)
 

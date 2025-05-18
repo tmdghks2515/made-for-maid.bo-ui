@@ -11,7 +11,7 @@ import IconButton from '@mui/joy/IconButton'
 import Edit from '@mui/icons-material/Edit'
 import Button from '@mui/joy/Button'
 import useApi from '@/hook/useApi'
-import { adminApi } from '@/core/api/user/admin.api'
+import { adminService } from '@/core/service/user/admin.service'
 
 type Props = {
   staffId: string
@@ -25,7 +25,7 @@ function StaffDetailConcepts({ staffId, staffConcepts, onChange }: Props) {
   const { getDisplayName, makeOptions } = useCode()
 
   const { execute, isLoading } = useApi({
-    api: adminApi.updateStaffConcepts,
+    api: adminService.updateStaffConcepts,
     onSuccess: (_) => {
       onChange(staffConceptsState)
       setIsEditMode(false)

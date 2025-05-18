@@ -4,7 +4,7 @@ import useHeaderStore from '@/store/useHeaderStore'
 import { useEffect, useState } from 'react'
 import useApi from '@/hook/useApi'
 import { SearchAdminQuery } from '@/core/type/user/admin.query'
-import { adminApi } from '@/core/api/user/admin.api'
+import { adminService } from '@/core/service/user/admin.service'
 import { PageableParams } from '@/core/type/shared/shared.data'
 import { AdminDTO } from '@/core/type/user/admin.data'
 import StaffItem from '@/app/(main)/worker/staff/_component/StaffItem'
@@ -30,7 +30,7 @@ export default function StaffListPage() {
     completed,
     data: staffPage,
   } = useApi({
-    api: adminApi.searchAdmins,
+    api: adminService.searchAdmins,
     globalLoading: true,
     onSuccess: (resData) => {
       setStaffList(resData.content)
@@ -38,7 +38,7 @@ export default function StaffListPage() {
   })
 
   const { execute: executeApprovalAdmin } = useApi({
-    api: adminApi.approveAdmin,
+    api: adminService.approveAdmin,
     onSuccess: (_, id) => {
       setStaffList((prevState) =>
         prevState.map((staff) => (staff.id === id ? { ...staff, approvedAt: dayjs().toString() } : staff)),
@@ -47,7 +47,7 @@ export default function StaffListPage() {
   })
 
   const { execute: executeRejectAdmin } = useApi({
-    api: adminApi.rejectAdmin,
+    api: adminService.rejectAdmin,
     onSuccess: (_, id) => {
       setStaffList((prevState) => prevState.filter((staff) => staff.id !== id))
     },

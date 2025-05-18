@@ -11,7 +11,7 @@ import { CreateAdminCommand, CreateStaffCommand } from '@/core/type/user/admin.c
 import { AdminSignInResDTO, StaffConcept, StaffType } from '@/core/type/user/admin.data'
 import useSnackbar from '@/hook/useSnackbar'
 import useAuthorize from '@/hook/useAuthorize'
-import { adminApi } from '@/core/api/user/admin.api'
+import { adminService } from '@/core/service/user/admin.service'
 
 export default function NicknamePage() {
   const searchParams = useSearchParams()
@@ -30,7 +30,7 @@ export default function NicknamePage() {
     CreateAdminCommand,
     AdminSignInResDTO
   >({
-    api: adminApi.createOwner,
+    api: adminService.createOwner,
     onSuccess: (resData) => {
       if (resData.status !== 'SIGN_IN_SUCCESS' || !resData.admin || !resData.accessToken) {
         openSnackbar({
@@ -52,14 +52,14 @@ export default function NicknamePage() {
   })
 
   const { execute: executeCreateManager, isLoading: isCreateManagerLoading } = useApi<CreateAdminCommand, string>({
-    api: adminApi.createManager,
+    api: adminService.createManager,
     onSuccess: () => {
       router.push('/signup/complete')
     },
   })
 
   const { execute: executeCreateStaff, isLoading: isCreateStaffLoading } = useApi<CreateStaffCommand, string>({
-    api: adminApi.createStaff,
+    api: adminService.createStaff,
     onSuccess: () => {
       router.push('/signup/complete')
     },

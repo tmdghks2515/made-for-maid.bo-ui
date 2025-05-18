@@ -1,5 +1,5 @@
 import MultiSelectChips from '@/component/input/MultiSelectChips'
-import { shopApi } from '@/core/api/affiliate/shop.api'
+import { shopService } from '@/core/service/affiliate/shop.service'
 import { ShopConcept } from '@/core/type/affiliation/shop.data'
 import Edit from '@mui/icons-material/Edit'
 import useApi from '@/hook/useApi'
@@ -20,7 +20,7 @@ function ShopConceptsField({ shopId, concepts: conceptsProp, onChange }: Props) 
   const { makeOptions, getDisplayName } = useCode()
 
   const { execute, isLoading } = useApi({
-    api: shopApi.updateShopConcepts,
+    api: shopService.updateShopConcepts,
     onSuccess: (resData) => {
       onChange(resData.shopConcepts)
       setIsEditMode(false)

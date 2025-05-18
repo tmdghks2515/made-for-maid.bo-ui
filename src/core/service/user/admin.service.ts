@@ -1,16 +1,11 @@
-import {
-  AdminKakaoSignInCommand,
-  CreateAdminCommand,
-  CreateStaffCommand,
-  UpdateProfileCommand,
-} from '@/core/type/user/admin.command'
+import { CreateAdminCommand, CreateStaffCommand, UpdateProfileCommand } from '@/core/type/user/admin.command'
 import { AxiosResponse } from 'axios'
 import { AdminDTO, AdminProfileDTO, AdminSignInResDTO, StaffConcept, StaffDetailDTO } from '@/core/type/user/admin.data'
-import axiosInstance from '@/core/api/axios'
+import axiosInstance from '@/core/service/axios'
 import { SearchAdminQuery } from '@/core/type/user/admin.query'
 import { Page, PageableParams } from '@/core/type/shared/shared.data'
 
-export const adminApi = {
+export const adminService = {
   createOwner: (params: CreateAdminCommand): Promise<AxiosResponse<AdminSignInResDTO>> =>
     axiosInstance.post('/user/admin/owner', params),
   createManager: (params: CreateAdminCommand): Promise<AxiosResponse<string>> =>

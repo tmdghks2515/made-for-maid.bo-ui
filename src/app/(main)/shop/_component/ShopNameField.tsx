@@ -1,6 +1,6 @@
 'use client'
 
-import { shopApi } from '@/core/api/affiliate/shop.api'
+import { shopService } from '@/core/service/affiliate/shop.service'
 import useApi from '@/hook/useApi'
 import { Button, FormControl, FormLabel, IconButton, Input } from '@mui/joy'
 import { memo, useState } from 'react'
@@ -17,7 +17,7 @@ function ShopNameField({ shopId, name: nameProp, onChange }: Props) {
   const [isEditMode, setIsEditMode] = useState(false)
 
   const { execute, isLoading } = useApi({
-    api: shopApi.updateShopName,
+    api: shopService.updateShopName,
     onSuccess: (resData) => {
       onChange(resData.name)
       setIsEditMode(false)

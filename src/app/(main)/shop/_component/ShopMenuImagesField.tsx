@@ -3,7 +3,7 @@ import useApi from '@/hook/useApi'
 import Edit from '@mui/icons-material/Edit'
 import { Button, FormLabel, IconButton } from '@mui/joy'
 import { memo, useRef, useState } from 'react'
-import { shopApi } from '@/core/api/affiliate/shop.api'
+import { shopService } from '@/core/service/affiliate/shop.service'
 import ImagesUpload from '@/component/input/ImagesUpload'
 import { ImageDTO } from '@/core/type/common/image.data'
 import { splitImageUrl } from '@/util/image.util'
@@ -24,7 +24,7 @@ function ShopMenuImagesField({ shopId, menuImages: menuImagesProp, onChange }: P
   }
 
   const { execute: executeUpdateMenuImages, isLoading } = useApi({
-    api: shopApi.updateShopMenuImages,
+    api: shopService.updateShopMenuImages,
     onSuccess: (resData) => {
       handleChange(resData.menuImages)
       setIsEditMode(false)

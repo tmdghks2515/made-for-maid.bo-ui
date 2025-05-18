@@ -7,7 +7,7 @@ import { AdminDTO } from '@/core/type/user/admin.data'
 import useHeaderStore from '@/store/useHeaderStore'
 import { useRouter } from 'next/navigation'
 import useApi from '@/hook/useApi'
-import { adminApi } from '@/core/api/user/admin.api'
+import { adminService } from '@/core/service/user/admin.service'
 import dayjs from 'dayjs'
 import StaffItem from '@/app/(main)/worker/staff/_component/StaffItem'
 import NoResultsText from '@/component/ui/NoResultsText'
@@ -30,7 +30,7 @@ export default function ManagerListPage() {
     completed,
     data: managerPage,
   } = useApi({
-    api: adminApi.searchAdmins,
+    api: adminService.searchAdmins,
     globalLoading: true,
     onSuccess: (resData) => {
       setManagers(resData.content)
@@ -38,7 +38,7 @@ export default function ManagerListPage() {
   })
 
   const { execute: executeApprovalAdmin } = useApi({
-    api: adminApi.approveAdmin,
+    api: adminService.approveAdmin,
     onSuccess: (_, id) => {
       setManagers((prevState) =>
         prevState.map((manager) => (manager.id === id ? { ...manager, approvedAt: dayjs().toString() } : manager)),
@@ -47,7 +47,7 @@ export default function ManagerListPage() {
   })
 
   const { execute: executeRejectAdmin } = useApi({
-    api: adminApi.rejectAdmin,
+    api: adminService.rejectAdmin,
     onSuccess: (_, id) => {
       setManagers((prevState) => prevState.filter((manager) => manager.id !== id))
     },

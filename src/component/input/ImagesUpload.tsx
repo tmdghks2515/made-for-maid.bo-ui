@@ -1,4 +1,4 @@
-import { imageApi } from '@/core/api/common/image.api'
+import { imageService } from '@/core/service/common/image.service'
 import { ImageDTO } from '@/core/type/common/image.data'
 import useApi from '@/hook/useApi'
 import Close from '@mui/icons-material/Close'
@@ -19,7 +19,7 @@ function ImagesUpload({ images, onChange, countInRow = 4 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { execute: executeUploadFile } = useApi({
-    api: imageApi.uploadImage,
+    api: imageService.uploadImage,
     onSuccess: (uploadedImage) => {
       onChange([...images, uploadedImage])
     },

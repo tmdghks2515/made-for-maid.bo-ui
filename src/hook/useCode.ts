@@ -3,11 +3,11 @@ import { CommonCodeDTO } from '@/core/type/common/common-code.data'
 import { ValueLabel } from '@/core/type/shared/shared.data'
 import { useCallback } from 'react'
 import useApi from '@/hook/useApi'
-import { commonCodeApi } from '@/core/api/common/common-code.api'
+import { commonCodeService } from '@/core/service/common/common-code.service'
 
 export default function useCode() {
   const { execute: executeGetCodeTree } = useApi<void, CommonCodeDTO[]>({
-    api: commonCodeApi.getCodeTree,
+    api: commonCodeService.getCodeTree,
   })
 
   const { data: codeTree = [] } = useQuery({

@@ -9,8 +9,8 @@ import Close from '@mui/icons-material/Close'
 import Input from '@mui/joy/Input'
 import Button from '@mui/joy/Button'
 import useApi from '@/hook/useApi'
-import { adminApi } from '@/core/api/user/admin.api'
-import { imageApi } from '@/core/api/common/image.api'
+import { adminService } from '@/core/service/user/admin.service'
+import { imageService } from '@/core/service/common/image.service'
 
 type Props = {
   staffId: string
@@ -42,7 +42,7 @@ function StaffDetailProfile({
   const saveDisabled = !nickname.trim() || (nickname === nicknameProp && profileImageUrl === profileImageUrlProp)
 
   const { execute: executeUpdateProfile, isLoading } = useApi({
-    api: adminApi.updateProfile,
+    api: adminService.updateProfile,
     onSuccess: () => {
       onChange(nickname, profileImageUrl)
       setIsEditMode(false)
@@ -50,7 +50,7 @@ function StaffDetailProfile({
   })
 
   const { execute: executeUploadImage } = useApi({
-    api: imageApi.uploadImage,
+    api: imageService.uploadImage,
     onSuccess: (uploadedImage) => {
       setUpdateProfileParams((prev) => ({
         ...prev,

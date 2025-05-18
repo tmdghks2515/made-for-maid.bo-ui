@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useApi from '@/hook/useApi'
-import { adminApi } from '@/core/api/user/admin.api'
+import { adminService } from '@/core/service/user/admin.service'
 import { StaffConcept, StaffDetailDTO } from '@/core/type/user/admin.data'
 import ProfileAvatar from '@/component/display/ProfileAvatar'
 import Divider from '@mui/joy/Divider'
@@ -21,7 +21,7 @@ export default function StaffDetailPage() {
   const [staff, setStaff] = useState<StaffDetailDTO>()
 
   const { execute } = useApi({
-    api: adminApi.getStaffDetail,
+    api: adminService.getStaffDetail,
     globalLoading: true,
     onSuccess: (resData) => {
       setStaff(resData)

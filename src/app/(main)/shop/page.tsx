@@ -1,7 +1,7 @@
 'use client'
 
 import MainWrapper from '@/component/layout/wrapper/MainWrapper'
-import { shopApi } from '@/core/api/affiliate/shop.api'
+import { shopService } from '@/core/service/affiliate/shop.service'
 import useApi from '@/hook/useApi'
 import useHeaderStore from '@/store/useHeaderStore'
 import { useEffect, useState } from 'react'
@@ -24,7 +24,7 @@ export default function ShopInfoPage() {
   const setHeaderTitle = useHeaderStore((state) => state.setHeaderTitle)
 
   const { execute } = useApi({
-    api: shopApi.getShopDetail,
+    api: shopService.getShopDetail,
     executeImmediately: true,
     onSuccess: setShop,
   })
